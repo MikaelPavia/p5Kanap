@@ -9,9 +9,8 @@ fetch("http://localhost:3000/api/products")
   .then(function(value){
     for (let i = 0; i < value.length; i++){
       console.log(value[i])
-      // sectionItems.innerHTML += value[i].name;
       let a = document.createElement("a");
-      a.href = "./product.html?id=42";
+      a.href = "./product.html?id=" + value[i]._id;
       sectionItems.appendChild(a);
       let article = document.createElement("article");
       a.appendChild(article);
@@ -27,6 +26,12 @@ fetch("http://localhost:3000/api/products")
       p.classList.add("productDescription");
       p.innerHTML = value[i].description;
       article.appendChild(p);
+      let url  = new URL(a);
+      let search_params = new URLSearchParams(url.search);
+      if(search_params.has('id')) {
+      let name = search_params.get('id')
+      console.log(name)
+    }
     };
     console.log(value);
   })
@@ -34,6 +39,4 @@ fetch("http://localhost:3000/api/products")
     console.log("Une erreur est survenue")
   })
 
-  
-
-  
+  console.log(fetch("http://localhost:3000/api/products"))
