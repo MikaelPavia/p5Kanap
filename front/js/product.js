@@ -28,74 +28,12 @@
 
 
 
-let url = 'http://localhost:3000/api/products';
-let params = new URL(document.location).searchParams;
-let id = params.get('id');
-
-
-let url2 = 'http://localhost:3000/api/products/';
-url2 += id;
-console.log(id)
-console.log(url2)
-console.log(window.location.href)
-
-
-fetch(url2)
-  .then(function(res){
-    if (res.ok) {
-      return res.json();
-    }
-  })
-  .then(function(value){
-    // for (let i = 0; i < value.length; i++){
-      
-    // };
-    console.log(value);
-    console.log(value.name);
-    
-    let item__img = document.getElementsByClassName('item__img');
-    let img = document.createElement('img');
-    img.src = value.imageUrl;
-    img.alt = value.altTXT;
-    // item__img.append(img);
-
-    let title = document.getElementById('title');
-    title += title.innerText = value.name;
-    let price = document.getElementById('price');
-    price.innerHTML = value.price;
-    let description = document.getElementById('description');
-    description.innerText = value.description;
-  })
-  .catch(function(err){
-    console.log("Une erreur est survenue")
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // let url = 'http://localhost:3000/api/products/';
 // url += id;
 // console.log(id)
 // console.log(url)
-
-
-
-
 
 
 
@@ -141,3 +79,51 @@ fetch(url2)
 
 
 
+let url = 'http://localhost:3000/api/products';
+let params = new URL(document.location).searchParams;
+let id = params.get('id');
+
+
+let url2 = 'http://localhost:3000/api/products/';
+url2 += id;
+console.log(id)
+console.log(url2)
+console.log(window.location.href)
+
+
+fetch(url2)
+  .then(function(res){
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  .then(function(value){
+    console.log(value);
+    console.log(value.name);
+    
+    let item__img = document.getElementById('item__img');
+    // let item__img = document.getElementsByClassName('item__img');
+    let img = document.createElement('img');
+    img.src = value.imageUrl;
+    img.alt = value.altTXT;
+    item__img.append(img);
+
+    let title = document.getElementById('title');
+    title += title.innerText = value.name;
+    let price = document.getElementById('price');
+    price.innerHTML = value.price;
+    let description = document.getElementById('description');
+    description.innerText = value.description;
+    let colors = document.getElementById('colors');
+    let color = value.colors;
+    for (let i=0; i < color.length; i++){
+      console.log(i)
+      let option = document.createElement('option');
+      option.value = color[i];
+      option.innerText = color[i];
+      colors.appendChild(option);
+    }
+  })
+  .catch(function(err){
+    console.log("Une erreur est survenue")
+  })
