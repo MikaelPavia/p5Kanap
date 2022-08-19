@@ -15,6 +15,22 @@ fetch(urlProducts)
   })
   .then(function (value) {
 
+  let addToCart = document.getElementById('addToCart');
+
+  addToCart.addEventListener('click', function(){
+    let product = {
+      id: id,
+      name: value.name,
+      price: value.price,
+      color : colors.value,
+      image : value.imageUrl,
+      quantity : quantity.value
+    }
+
+    let objLinea = JSON.stringify(product)
+    localStorage.setItem("obj", objLinea)
+}
+)
     // let items__img = document.getElementById('items__img');
     let items__img = document.getElementsByClassName('items__img');
     console.log(items__img)
@@ -37,7 +53,7 @@ fetch(urlProducts)
 
     function addPrice(){
       let price = document.getElementById('price');
-    price.innerHTML = value.price;
+      price.innerHTML = value.price;
     }
     addPrice();
 
@@ -70,12 +86,8 @@ fetch(urlProducts)
     console.log("Une erreur est survenue")
   })
 
-let product = {
-  id: id,
-  name: title,
-  price: 30,
-  colors: "cn",
-}
-let objLinea = JSON.stringify(product)
-localStorage.setItem("obj", objLinea)
+
+
+
+
 
