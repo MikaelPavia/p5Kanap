@@ -14,6 +14,8 @@ let divCartItemContentDescription = document.createElement('div');
 
 let divCartItemContentSettings = document.createElement('div');
 
+let divCartItemContentSettingsQuantity = document.createElement('div');
+
 function addArticle(){
     
     article.classList.add("cart__item");
@@ -43,6 +45,7 @@ function addDivCartItemContent(){
 }
 
 
+
 function addDivCartItemContentDescription(){
     
     divCartItemContentDescription.classList.add('cart__item__content__description');
@@ -63,11 +66,13 @@ function addDivCartItemContentDescription(){
     divCartItemContentDescription.appendChild(priceProduct);
 }
 
-let divCartItemContentSettingsQuantity = document.createElement('div');
+
+
+
 function addCartItemContentSettings(){
 
     divCartItemContentSettings.classList.add('cart__item__content__settings');
-    article.appendChild(divCartItemContentSettings);
+    divCartItemContent.appendChild(divCartItemContentSettings);
 
     divCartItemContentSettingsQuantity.classList.add('cart__item__content__settings__quantity');
     let qté = document.createElement('p');
