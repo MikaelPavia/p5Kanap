@@ -7,6 +7,33 @@ urlProducts += id;
 
 
 
+
+function addMsgBox(){
+  let msg = document.getElementsByTagName('article');
+  console.log(msg)
+  for (let message of msg){
+    let box = document.createElement('div');
+    box.style.border = "1px solid black";
+    box.style.borderRadius = "10px";
+    box.style.width = "400px";
+    box.style.marginTop = "50px";
+    box .style.textAlign = 'center';
+    box.style.backgroundColor = "green";
+    box.innerText = 'Votre produit a bien été ajouté au panier';
+    message.appendChild(box)
+
+    setTimeout(() => {
+      box.remove();
+    }, "1500")
+    
+  }
+}
+
+
+
+
+
+
 fetch(urlProducts)
   .then(function (res) {
     if (res.ok) {
@@ -15,31 +42,47 @@ fetch(urlProducts)
   })
   .then(function (value) {
 
-  let addToCart = document.getElementById('addToCart');
 
-  addToCart.addEventListener('click', function(){
-    let product = {
-      id: id,
-      name: value.name,
-      price: value.price,
-      color : colors.value,
-      image : value.imageUrl,
-      quantity : quantity.value
+
+
+    function addProductToCart(){
+      let addToCart = document.getElementById('addToCart');
+
+      addToCart.addEventListener('click', function(){
+        let product = {
+          id: id,
+          name: value.name,
+          price: value.price,
+          color : colors.value,
+          image : value.imageUrl,
+          quantity : quantity.value
+          
+        }
+        
+        let objLinea = JSON.stringify(product)
+        localStorage.setItem("obj", objLinea)
+        addMsgBox()
     }
+    )
+    }
+  addProductToCart();
+    
 
-    let objLinea = JSON.stringify(product)
-    localStorage.setItem("obj", objLinea)
-}
-)
-    // let items__img = document.getElementById('items__img');
-    let items__img = document.getElementsByClassName('items__img');
-    console.log(items__img)
-    for (p of items__img) {
+
+
+
+  function addImage(){
+    let items__img = document.getElementsByClassName('item__img');
+    for (image of items__img) {
       let img = document.createElement('img');
       img.src = value.imageUrl;
       img.alt = value.altTXT;
-      items__img.append(img);
+      image.appendChild(img);
     }
+  }
+
+  addImage();
+    
 
 
 

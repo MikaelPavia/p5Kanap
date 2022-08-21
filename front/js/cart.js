@@ -1,77 +1,114 @@
-// let objJson = {
-//     produit : "Dany",
-//     age : 30,
-//     taille : 170
-// }
-// let objLinea = JSON.stringify(objJson)
-// localStorage.setItem("obj",objLinea)
-
-// console.log(objJson)
-
 let objLinea = localStorage.getItem("obj");
-console.log(objLinea);
 
-    
 let objJson = JSON.parse(objLinea);
-console.log(objJson)
 
 let section = document.getElementById('cart__items');
-// let div = document.createElement('div');
-// div.innerHTML = objJson.id;
-// div.innerHTML += objJson.color
-// div.innerHTML += objJson.name;
-// div.innerHTML += objJson.price;
-// section.appendChild(div)
 
 let article = document.createElement('article');
-article.classList.add("cart__item");
-article.dataset.id = objJson.id;
-article.dataset.color = objJson.color;
-
-
-section.appendChild(article);
-
 
 let divImg = document.createElement('div');
-divImg.classList.add('cart__item__img');
-article.appendChild(divImg);
-
-let img = document.createElement('img');
-img.src = "";
-img.src = "";
-divImg.appendChild(img);
 
 let divCartItemContent = document.createElement('div');
-divCartItemContent.classList.add("cart__item__content");
-article.appendChild(divCartItemContent);
 
 let divCartItemContentDescription = document.createElement('div');
-divCartItemContentDescription.classList.add('cart__item__content__description');
-divCartItemContent.appendChild(divCartItemContentDescription);
-let nameProduct = document.createElement('h2');
-let colorProduct = document.createElement('p');
-let priceProduct = document.createElement('p');
 
+let divCartItemContentSettings = document.createElement('div');
 
-nameProduct.innerText = objJson.name;
-colorProduct.innerHTML = objJson.color;
-priceProduct.innerHTML = objJson.price + " €";
-
-
-divCartItemContentDescription.appendChild(nameProduct);
-divCartItemContentDescription.appendChild(colorProduct);
-divCartItemContentDescription.appendChild(priceProduct);
-
-
-
-console.log(objJson.name)
-console.log(article)
-console.log(nameProduct)
-console.log(divCartItemContent)
+function addArticle(){
+    
+    article.classList.add("cart__item");
+    article.dataset.id = objJson.id;
+    article.dataset.color = objJson.color;
+    section.appendChild(article);
+}
 
 
 
 
+function addImg(){
+    
+    divImg.classList.add('cart__item__img');
+    article.appendChild(divImg);
+    let img = document.createElement('img');
+    img.src = objJson.image;
+    divImg.appendChild(img);
+}
+
+
+
+function addDivCartItemContent(){
+    
+    divCartItemContent.classList.add("cart__item__content");
+    article.appendChild(divCartItemContent);
+}
+
+
+function addDivCartItemContentDescription(){
+    
+    divCartItemContentDescription.classList.add('cart__item__content__description');
+    divCartItemContent.appendChild(divCartItemContentDescription);
+
+    let nameProduct = document.createElement('h2');
+    let colorProduct = document.createElement('p');
+    let priceProduct = document.createElement('p');
+    
+    
+    nameProduct.innerText = objJson.name;
+    colorProduct.innerHTML = objJson.color;
+    priceProduct.innerHTML = objJson.price + " €";
+    
+    
+    divCartItemContentDescription.appendChild(nameProduct);
+    divCartItemContentDescription.appendChild(colorProduct);
+    divCartItemContentDescription.appendChild(priceProduct);
+}
+
+let divCartItemContentSettingsQuantity = document.createElement('div');
+function addCartItemContentSettings(){
+
+    divCartItemContentSettings.classList.add('cart__item__content__settings');
+    article.appendChild(divCartItemContentSettings);
+
+    divCartItemContentSettingsQuantity.classList.add('cart__item__content__settings__quantity');
+    let qté = document.createElement('p');
+    qté.innerText = 'Qté : ';
+    let inputQté = document.createElement('input');
+    inputQté.type = 'number';
+    inputQté.classList.add('itemQuantity');
+    inputQté.name = ('itemQuantity');
+    inputQté.min = '1';
+    inputQté.max = '100';
+    inputQté.value = objJson.quantity;
+
+    let divCartItemContentSettingsDelete = document.createElement('div');
+
+    divCartItemContentSettingsDelete.classList.add('cart__item__content__settings__delete');
+
+    let deleteButton = document.createElement('p');
+    deleteButton.classList.add('deleteItem');
+    deleteButton.innerText = 'Supprimer';
+    divCartItemContentSettingsDelete.appendChild(deleteButton);
+
+
+
+    divCartItemContentSettingsQuantity.appendChild(qté);
+
+    divCartItemContentSettings.appendChild(divCartItemContentSettingsQuantity);
+
+    divCartItemContentSettingsQuantity.appendChild(inputQté);
+
+    divCartItemContentSettings.appendChild(divCartItemContentSettingsDelete);
+
+} 
+addArticle();
+
+addImg();
+
+addDivCartItemContent();
+
+addDivCartItemContentDescription();
+
+addCartItemContentSettings();
 
 
 
