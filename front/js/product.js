@@ -1,7 +1,7 @@
 let params = new URL(document.location).searchParams;
 let id = params.get('id');
-
-
+let colorId = document.getElementById('colors');
+let quantity = document.getElementById('quantity');
 let urlProducts = 'http://localhost:3000/api/products/';
 urlProducts += id;
 
@@ -29,9 +29,64 @@ function addMsgBox(){
   }
 }
 
+function addProductToCart(product){
+  let addToCart = document.getElementById('addToCart');
+
+  addToCart.addEventListener('click', function(){
+    let obj = {
+      id: id,
+      color : colorId.value,
+      quantity : quantity.value
+    }
+    
+    let objLinea = JSON.stringify(obj)
+    localStorage.setItem("obj", objLinea)
+    addMsgBox()
+}
+)
+}
 
 
 
+function addImage(product){
+  let items__img = document.getElementsByClassName('item__img');
+  for (let image of items__img) {
+    let img = document.createElement('img');
+    img.src = product.imageUrl;
+    img.alt = product.altTXT;
+    image.appendChild(img);
+  }
+}
+
+function addName(titleText) {
+  let title = document.getElementById('title');
+  title += title.innerText = titleText;
+}
+
+function addPrice(price){
+  let priceElement = document.getElementById('price');
+  priceElement.innerHTML = price;
+}
+
+
+
+function addDescription (description){
+  let descriptionElement = document.getElementById('description');
+  descriptionElement.innerText = description;
+}
+
+
+function addColorsOptions(colorslist){
+  
+
+
+for (let color of colorslist) {
+  let colorsOptions = document.createElement('option');
+  colorsOptions.value = color;
+  colorsOptions.innerText = color;
+  colorId.appendChild(colorsOptions);
+}
+}
 
 
 fetch(urlProducts)
@@ -40,86 +95,20 @@ fetch(urlProducts)
       return res.json();
     }
   })
-  .then(function (value) {
+  .then(function (productFromApi) {
 
 
+  addProductToCart(productFromApi);
 
-
-    function addProductToCart(){
-      let addToCart = document.getElementById('addToCart');
-
-      addToCart.addEventListener('click', function(){
-        let product = {
-          id: id,
-          name: value.name,
-          price: value.price,
-          color : colors.value,
-          image : value.imageUrl,
-          quantity : quantity.value
-          
-        }
-        
-        let objLinea = JSON.stringify(product)
-        localStorage.setItem("obj", objLinea)
-        addMsgBox()
-    }
-    )
-    }
-  addProductToCart();
+  addImage(productFromApi);
     
+  addName(productFromApi.name);
 
+  addPrice(productFromApi.price);
 
+  addDescription(productFromApi.description);
 
-
-  function addImage(){
-    let items__img = document.getElementsByClassName('item__img');
-    for (image of items__img) {
-      let img = document.createElement('img');
-      img.src = value.imageUrl;
-      img.alt = value.altTXT;
-      image.appendChild(img);
-    }
-  }
-
-  addImage();
-    
-
-
-
-    function addName() {
-      let title = document.getElementById('title');
-      title += title.innerText = value.name;
-    }
-    addName();
-
-
-
-    function addPrice(){
-      let price = document.getElementById('price');
-      price.innerHTML = value.price;
-    }
-    addPrice();
-
-
-    function addDescription (){
-      let description = document.getElementById('description');
-      description.innerText = value.description;
-    }
-    addDescription();
-
-
-    function addColorsOptions(){
-      let colorId = document.getElementById('colors');
-      let colors = value.colors;
-
-    for (color of colors) {
-      let colorsOptions = document.createElement('option');
-      colorsOptions.value = color;
-      colorsOptions.innerText = color;
-      colorId.appendChild(colorsOptions);
-    }
-    }
-    addColorsOptions();
+  addColorsOptions(productFromApi.colors);
 
 
   })
