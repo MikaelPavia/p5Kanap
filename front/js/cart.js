@@ -1,8 +1,42 @@
-let objLinea = localStorage.getItem("obj");
+let objLinea = localStorage.getItem("productChoose");
 
 let objJson = JSON.parse(objLinea);
+console.log(objJson.length)
+
+
+for (let i = 0; i < objJson.length; i++){
+
+  function url(){
+
+    let urlProducts = 'http://localhost:3000/api/products/';
+    urlProducts += objJson[i].id;
+    return(urlProducts);
+  }
+
+  
+  function getColorChoose() {
+
+    let colorChoose = objJson[i].color;
+    return(colorChoose);
+  }
+
+  function getQuantityChoose(){
+
+    let quantityChoose = objJson[i].quantity;
+    return(quantityChoose);
+  }
+
+
+
+
+
+  let colorChoose = getColorChoose();
+
+let quantityChoose = getQuantityChoose();
 
 let section = document.getElementById('cart__items');
+
+
 
 
 function addArticle(){
@@ -56,8 +90,9 @@ function addNameProduct(nameChoose, contentDescription){
 
 function addColorProduct(contentDescription){
     let colorProduct = document.createElement('p');
-    colorProduct.innerHTML = objJson.color;
+    colorProduct.innerHTML = colorChoose;
     contentDescription.appendChild(colorProduct);
+    
 }
 
 
@@ -90,7 +125,7 @@ function addSettingsQuantity(Settings){
     inputQté.name = ('itemQuantity');
     inputQté.min = '1';
     inputQté.max = '100';
-    inputQté.value = objJson.quantity;
+    inputQté.value = quantityChoose;
 
     divCartItemContentSettingsQuantity.appendChild(qté);
     divCartItemContentSettingsQuantity.appendChild(inputQté);
@@ -113,13 +148,8 @@ function settingsButtonDelete (Settings){
 
 }
 
+let urlProducts = url();
 
-console.log(objJson.id)
-
-let urlProducts = 'http://localhost:3000/api/products/';
-urlProducts += objJson.id;
-
-console.log(urlProducts)
 
 fetch(urlProducts)
   .then(function (res) {
@@ -129,7 +159,7 @@ fetch(urlProducts)
   })
   .then(function (productFromApi) {
 
-    console.log(productFromApi.price)
+    
 
 
     let createdArticle = addArticle();
@@ -144,13 +174,20 @@ fetch(urlProducts)
     let settingsQuantity = addSettingsQuantity(itemContentSettings);
     let ButtonDelete = settingsButtonDelete(itemContentSettings);
 
-
   })
 
   .catch(function (err) {
     console.log(err)
     console.log("Une erreur est survenue")
   })
+
+}
+
+
+
+
+
+
 
 
 
