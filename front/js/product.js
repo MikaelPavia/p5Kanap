@@ -31,210 +31,46 @@ function addMsgBox() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// let array = [];
-// let obj = {
-//   id: id,
-//   color : colorId.value,
-//   quantity : quantity.value
-// }
-// function addProductToCart(product){
-//   let addToCart = document.getElementById('addToCart');
-
-//   addToCart.addEventListener('click', function(){
-
-//     let objLinea = JSON.stringify(array);
-//     localStorage.setItem("obj", objLinea);
-
-//     let objLineaa = localStorage.getItem("obj");
-
-// let objJson = JSON.parse(objLineaa);
-//     addMsgBox();
-//     console.log(obj)
-//     if (objJson === null){
-//       let array = [];
-//       alert('yessss')
-//     }else {
-//       alert('nooooo')
-//     }
-
-// }
-// )
-// }
-
-
-
-
-
-let array = [];
-let obj = {
-  id: id,
-  color: colorId.value,
-  quantity: quantity.value
+function saveBasket(basket){
+  localStorage.setItem("basket", JSON.stringify(basket));
 }
 
-let objLinea = JSON.stringify(array);
-localStorage.setItem("productChoose", objLinea);
 
+function getBasket() {
+  let basket = localStorage.getItem("basket");
 
-function addProductToCart(product) {
-  let addToCart = document.getElementById('addToCart');
-
-  addToCart.addEventListener('click', function () {
-
-    // if (array.length === 0 ){
-    //   obj = {
-    //     id: id,
-    //     color : colorId.value,
-    //     quantity : quantity.value
-    //   }
-    //   array.push(obj);
-    //   console.log(array);
-
-    // }else {
-    //   obj = {
-    //     id: id,
-    //     color : colorId.value,
-    //     quantity : quantity.value
-    //   }
-
-    //   array.push(obj);
-    //   console.log(array);
-
-
-    // }
-
-    // obj = {
-    //       id: id,
-    //       color : colorId.value,
-    //       quantity : quantity.value
-    //     }
-
-    //     array.push(obj);
-    //     console.log(array);
-
-    // let objLinea = JSON.stringify(array);
-    // localStorage.setItem("obj", objLinea);
-    addMsgBox();
-
-    let objloc = localStorage.getItem("productChoose");
-
-    let objlocrecup = JSON.parse(objloc);
-
-
-    console.log(objlocrecup)
-
-
-    if (objlocrecup === null) {
-      console.log('yes')
-      obj = {
-        id: id,
-        color: colorId.value,
-        quantity: quantity.value
-      }
-
-      array.push(obj);
-      console.log(array);
-
-      let objLinea = JSON.stringify(array);
-      localStorage.setItem("productChoose", objLinea);
-
-      console.log(objlocrecup)
-    } else  {
-// for (let i=0; i < objlocrecup.length; i++){
-      //   console.log(objlocrecup)
-      //   obj = {
-      //     id: id,
-      //     color: colorId.value,
-      //     quantity: quantity.value
-      //   }
-
-      //   array.push(obj);
-      for (let i=0; i < objlocrecup; i++){
-        console.log('boucle')
-      }
-      
-      obj = {
-        id: id,
-        color: colorId.value,
-        quantity: quantity.value
-      }
-      array.push(obj);
-      console.log(array);
-
-      let objLinea = JSON.stringify(array);
-      localStorage.setItem("productChoose", objLinea);
-      console.log('nooo')
-      console.log(objlocrecup.length)
-    }
-    console.log(objlocrecup)
+  if (basket == null) {
+    return [];
+  }else {
+    return JSON.parse(basket);
   }
-  )
 }
 
 
+function addBasket(product) {
 
+  let basket = getBasket();
+  let foundProduct = basket.find(p => p.id == product.id && p.color == product.color);
+  
+  if (foundProduct != undefined) {
+    // foundProduct = obj;
+    // foundProduct.quantity++ + product.quantity;
+    // product.quantity;
+    // parseInt(quantity.value);
+    foundProduct.quantity = foundProduct.quantity++;
+    foundProduct.quantity += parseInt(product.quantity);
+  }else {
+    basket.push(product);
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  saveBasket(basket);
+}
 
 
 
 function addImage(product) {
   let items__img = document.getElementsByClassName('item__img');
+
   for (let image of items__img) {
     let img = document.createElement('img');
     img.src = product.imageUrl;
@@ -243,10 +79,14 @@ function addImage(product) {
   }
 }
 
+
+
 function addName(titleText) {
   let title = document.getElementById('title');
   title += title.innerText = titleText;
 }
+
+
 
 function addPrice(price) {
   let priceElement = document.getElementById('price');
@@ -263,8 +103,6 @@ function addDescription(description) {
 
 function addColorsOptions(colorslist) {
 
-
-
   for (let color of colorslist) {
     let colorsOptions = document.createElement('option');
     colorsOptions.value = color;
@@ -276,10 +114,12 @@ function addColorsOptions(colorslist) {
 
 fetch(urlProducts)
   .then(function (res) {
+
     if (res.ok) {
       return res.json();
     }
   })
+
   .then(function (productFromApi) {
 
 
@@ -302,3 +142,196 @@ fetch(urlProducts)
     console.log(err)
     console.log("Une erreur est survenue")
   })
+
+
+
+
+
+
+// let array = [];
+// let obj = {
+//   id: id,
+//   color : colorId.value,
+//   quantity : quantity.value
+// }
+
+// let obj = {
+//   id: id,
+//   color: colorId.value,
+//   quantity: quantity.value
+// }
+
+function addProductToCart(product) {
+  let addToCart = document.getElementById('addToCart');
+
+  addToCart.addEventListener('click', function () {
+
+    
+    
+    
+// function saveBasket(array){
+//   // localStorage.setItem("basket", JSON.stringify(basket));
+//     localStorage.setItem("obj", JSON.stringify(array));
+// }
+
+// function getBasket(){
+//   let basket = localStorage.getItem("obj");
+//   if(basket == null){
+//         return [];
+        
+//       }else {
+        
+//         return JSON.parse(basket);
+        
+//       }
+// }
+
+// function addBasket(product){
+//   let basket = getBasket();
+//   let obj = {
+//     id: id,
+//     color : colorId.value,
+//     quantity : quantity.value
+    
+//   }
+
+  
+
+//   let productFound = basket.find(element => element.id == obj.id && element.color == obj.color)
+  
+//   console.log(productFound)
+//   // for (let i = 0; i < basket.length; i ++){
+
+//   // }
+//   console.log(basket)
+//     if (productFound != undefined){
+//       obj.quantity++;
+//     }else{
+//       obj.quantity = 1;
+//       basket.push(product);
+//     }
+//   array.push(obj);
+//   console.log(array)
+  
+
+//   saveBasket(array)
+// }
+    
+//       addBasket();
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+// let obj = {
+//   id: id,
+//   color: colorId.value,
+//   quantity: quantity.value
+// }
+
+// function saveBasket(basket){
+//   localStorage.setItem("obj", JSON.stringify(basket));
+// }
+
+// function getBasket(){
+//   let basket = localStorage.getItem("obj");
+//   if(basket == null){
+//     return [];
+    
+//   }else {
+//     return JSON.parse(basket);
+//   }
+// }
+
+// console.log(getBasket())
+
+// function addBasket(product){
+//   let basket = getBasket();
+// console.log(product)
+//   // let foundProduct = basket.find(Element => Element == product.id && Element.color == product.color)
+//   // if (foundProduct != undefined){
+//   //   foundProduct.quantity++;
+//   // }else {
+//   //   product.quantity = 1
+//   //   basket.push(product);
+//   // }
+  
+//   saveBasket(basket)
+// }
+
+// addBasket(obj)
+
+// console.log(addBasket())
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//     let objloc = localStorage.getItem("productChoose");
+
+//     let objlocrecup = JSON.parse(objloc);
+
+
+//     console.log(objlocrecup)
+
+
+//     if (objlocrecup === null) {
+//       console.log('yes')
+//       obj = {
+//         id: id,
+//         color: colorId.value,
+//         quantity: quantity.value
+//       }
+
+//       array.push(obj);
+//       console.log(array);
+
+//       let objLinea = JSON.stringify(array);
+//       localStorage.setItem("productChoose", objLinea);
+
+//       console.log(objlocrecup)
+//     } else  {
+// // for (let i=0; i < objlocrecup.length; i++){
+//       //   console.log(objlocrecup)
+//       //   obj = {
+//       //     id: id,
+//       //     color: colorId.value,
+//       //     quantity: quantity.value
+//       //   }
+
+//       //   array.push(obj);
+//       for (let i=0; i < objlocrecup; i++){
+//         console.log('boucle')
+//       }
+      
+//       obj = {
+//         id: id,
+//         color: colorId.value,
+//         quantity: quantity.value
+//       }
+//       array.push(obj);
+//       console.log(array);
+
+//       let objLinea = JSON.stringify(array);
+//       localStorage.setItem("productChoose", objLinea);
+//       console.log('nooo')
+//       console.log(objlocrecup.length)
+//     }
+
+addMsgBox();
+let obj = {
+  id: id,
+  color: colorId.value,
+  quantity: quantity.value
+}
+addBasket(obj);
+
+   }) 
+}

@@ -17,14 +17,14 @@ function addArticle (a){
 
 function addImg (productImage, article){
   let img = document.createElement("img");
-img.src  = productImage;
-img.alt = productImage;
-article.appendChild(img);
-return img;
+  img.src  = productImage;
+  img.alt = productImage;
+  article.appendChild(img);
+  return img;
 }
 
 function addName (productName, article){
-  let title = document.createElement("h3");
+      let title = document.createElement("h3");
       title.classList.add("productName");
       title.innerText = productName;
       article.appendChild(title);
@@ -49,8 +49,27 @@ fetch("http://localhost:3000/api/products")
     for (let product of products){
       console.log(product)
 
+      let createdLink = addLink(product._id);
+
+      let createdArticle = addArticle(createdLink);
+
+      let img = addImg(product.imageUrl, createdArticle)
+
+      let name = addName(product.name, createdArticle)
       
-      // let a = document.createElement("a");
+      let description = addDescription(product.description, createdArticle)
+    
+    };
+    
+  })
+  .catch(function(err){
+    console.log(err)
+    console.log("Une erreur est survenue")
+  })
+
+
+
+  // let a = document.createElement("a");
       // a.href = "./product.html?id=" + value[i]._id;
       // sectionItems.appendChild(a);
 
@@ -71,23 +90,3 @@ fetch("http://localhost:3000/api/products")
       // p.classList.add("productDescription");
       // p.innerHTML = value[i].description;
       // article.appendChild(p);
-
-      
-      let createdLink = addLink(product._id);
-
-      
-      let createdArticle = addArticle(createdLink);
-
-      let img = addImg(product.imageUrl, createdArticle)
-
-      let name = addName(product.name, createdArticle)
-      
-      let description = addDescription(product.description, createdArticle)
-    
-    };
-    
-  })
-  .catch(function(err){
-    console.log(err)
-    console.log("Une erreur est survenue")
-  })
