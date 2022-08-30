@@ -86,7 +86,6 @@ function addDivCartItemContent(article){
 
 function addDivCartItemContentDescription(divCartItemContent){
 
-
   let divCartItemContentDescription = document.createElement('div');
   divCartItemContentDescription.classList.add('cart__item__content__description');
   divCartItemContent.appendChild(divCartItemContentDescription);
@@ -96,6 +95,7 @@ function addDivCartItemContentDescription(divCartItemContent){
 
 
 function addNameProduct(nameChoose, contentDescription){
+
   let nameProduct = document.createElement('h2');
   nameProduct.innerText = nameChoose;
   contentDescription.appendChild(nameProduct);
@@ -103,6 +103,7 @@ function addNameProduct(nameChoose, contentDescription){
 
 
 function addColorProduct(contentDescription, colorChoose){
+
   let colorProduct = document.createElement('p');
   colorProduct.innerHTML = colorChoose;
   contentDescription.appendChild(colorProduct);
@@ -111,6 +112,7 @@ function addColorProduct(contentDescription, colorChoose){
 
 
 function addPriceProduct(priceChoose, contentDescription){
+
   let priceProduct = document.createElement('p');
   priceProduct.innerHTML = priceChoose + " €";  // Appel API
   contentDescription.appendChild(priceProduct);
@@ -148,8 +150,13 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen){
 
   inputQté.addEventListener('change', function(){
 
-    productChoosen.quantity = inputQté.value;
-    saveBasket(objJson);
+  productChoosen.quantity = inputQté.value;
+    
+  saveBasket(objJson);
+    
+  console.log(totalQuantity)
+
+    // totalQuantity.innerHTML = inputQté.value;
   })
 }
 
@@ -167,42 +174,67 @@ function settingsButtonDelete (Settings, productChoosen, article){
   Settings.appendChild(divCartItemContentSettingsDelete);
   deleteButton.addEventListener('click', function(){
     
-    
-    // console.log(productChoosen)
-    // saveBasket(objJson);
-    
-    // article.remove();
-    // const el = document.getElementsByTagName('img')
-    // console.log(el)
     let div = document.getElementsByTagName('article');
-// console.log(div)
-// console.log(div.closest('#data-id '+ article.dataset.id))
-    // for (let p of div){
-    //   console.log(p.closest('article'))
-    //   di.remove()
-    //   console.log(p)
-    // }
-    let basket = getBasket();
-    for (let i = 0; i < getBasket().length; i++){
-      if (objJson[i].id == article.dataset.id){
-        console.log(objJson[i].color)
+
+    for (let i = 0; i < objJson.length; i++){
+      if (objJson[i].id == article.dataset.id && objJson[i].color == article.dataset.color){
+        
         article.remove();
         
-        console.log(getBasket());
-        console.log(basket[i]);
-       
-        // delete basket[i].id;
-        // saveBasket(basket)/////////////////////////////////////
+       objJson.splice(i,1)
+       saveBasket(objJson)
       }
-      
-    }
-    console.log(article.dataset.id)
-    console.log(article.dataset.color)
-    // delete article.dataset.id
+      // totalQuantity.innerHTML = objJson.length;
 
+      
+      // printTotalPrice.innerHTML = prixTotal;
+    }
+    
   })
   return divCartItemContentSettingsDelete;
 
+}
+
+let arrayTotalQuantity = [];
+
+function addTotalQuantity(quantityChoose){
+  let totalQuantity = document.getElementById('totalQuantity');
+  let totalQuantityProduct = parseInt(quantityChoose)
+   
+  arrayTotalQuantity.push(totalQuantityProduct)
+    
+  const reducer = (accumulator, currentValue) => accumulator +currentValue
+  const totalNumberOfArticles = arrayTotalQuantity.reduce(reducer);
+   
+  totalQuantity.innerHTML = totalNumberOfArticles;
+  
+  return totalQuantity;
+}
+
+function addTotalPrice(prixTotal){
+  let totalPrice = prixTotal;
+  let printTotalPrice = document.getElementById('totalPrice');
+  printTotalPrice.innerHTML = totalPrice;
+  return printTotalPrice;
+}
+
+
+
+
+let arrayCalcTotalPrice = [];
+
+function calcTotalPrice(prix, quantity){
+  
+  let totalSameProduct = prix * quantity;
+  console.log(totalSameProduct)
+  
+  arrayCalcTotalPrice.push(totalSameProduct)
+  console.log(arrayCalcTotalPrice)
+
+  const reducer = (accumulator, currentValue) => accumulator +currentValue
+  const prixTotal = arrayCalcTotalPrice.reduce(reducer);
+  console.log(prixTotal)
+  return prixTotal;
 }
 
 
@@ -235,90 +267,25 @@ fetch(urlProducts)
     let price = addPriceProduct(productFromApi.price, itemContentDescription);
 
     let itemContentSettings = addCartItemContentSettings(itemContent);
-    
-    let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen);
+
+    let calcTotalPriceProducts = calcTotalPrice(productFromApi.price, quantityChoose);
+
+    let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen, calcTotalPriceProducts);
     
     let ButtonDelete = settingsButtonDelete(itemContentSettings, productChoosen, createdArticle);
     
+    let printQuantity = addTotalQuantity(quantityChoose);
+    
+    let printTotalPrice = addTotalPrice(calcTotalPriceProducts);
+    
+
+    
   })
 
+  
   .catch(function (err) {
     console.log(err)
     console.log("Une erreur est survenue")
   })
 
 }
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-// function addDivCartItemContentDescription(){
-    
-//     divCartItemContentDescription.classList.add('cart__item__content__description');
-//     divCartItemContent.appendChild(divCartItemContentDescription);
-
-//     let nameProduct = document.createElement('h2');
-//     let colorProduct = document.createElement('p');
-//     let priceProduct = document.createElement('p');
-    
-    
-//     // nameProduct.innerText = objJson.name;
-//     colorProduct.innerHTML = objJson.color;
-//     // priceProduct.innerHTML = objJson.price + " €";  // Appel API
-    
-    
-//     divCartItemContentDescription.appendChild(nameProduct);
-//     divCartItemContentDescription.appendChild(colorProduct);
-//     divCartItemContentDescription.appendChild(priceProduct);
-// }
-
-
-
-
-// function addCartItemContentSettings(){
-
-//     divCartItemContentSettings.classList.add('cart__item__content__settings');
-//     divCartItemContent.appendChild(divCartItemContentSettings);
-
-//     divCartItemContentSettingsQuantity.classList.add('cart__item__content__settings__quantity');
-//     let qté = document.createElement('p');
-//     qté.innerText = 'Qté : ';
-//     let inputQté = document.createElement('input');
-//     inputQté.type = 'number';
-//     inputQté.classList.add('itemQuantity');
-//     inputQté.name = ('itemQuantity');
-//     inputQté.min = '1';
-//     inputQté.max = '100';
-//     inputQté.value = objJson.quantity;
-
-//     let divCartItemContentSettingsDelete = document.createElement('div');
-
-//     divCartItemContentSettingsDelete.classList.add('cart__item__content__settings__delete');
-
-//     let deleteButton = document.createElement('p');
-//     deleteButton.classList.add('deleteItem');
-//     deleteButton.innerText = 'Supprimer';
-//     divCartItemContentSettingsDelete.appendChild(deleteButton);
-
-
-
-//     divCartItemContentSettingsQuantity.appendChild(qté);
-
-//     divCartItemContentSettings.appendChild(divCartItemContentSettingsQuantity);
-
-//     divCartItemContentSettingsQuantity.appendChild(inputQté);
-
-//     divCartItemContentSettings.appendChild(divCartItemContentSettingsDelete);
-
-// } 
