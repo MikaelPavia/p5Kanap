@@ -46,19 +46,20 @@ function getColorChoose(productChoosen) {
 
 function getQuantityChoose(productChoosen){
 
-  let quantityChoose = productChoosen.quantity;
+  let quantityChoose = productChoosen;
   return(quantityChoose);
 }
 
 
-
-function addArticle(){
+function addArticle(idProductChoosen, colorProductChoosen){
   
   let article = document.createElement('article');
   article.classList.add("cart__item");
-  article.dataset.id = objJson.id;
-  article.dataset.color = objJson.color;
+  article.dataset.id = idProductChoosen;
+  article.dataset.color = colorProductChoosen;
   section.appendChild(article);
+  // console.log(article.dataset.id)
+  // console.log(article.dataset.color)
   return article;
 }
 
@@ -153,7 +154,7 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen){
 }
 
 
-function settingsButtonDelete (Settings){
+function settingsButtonDelete (Settings, productChoosen, article){
 
   let divCartItemContentSettingsDelete = document.createElement('div');
 
@@ -164,23 +165,53 @@ function settingsButtonDelete (Settings){
   deleteButton.innerText = 'Supprimer';
   divCartItemContentSettingsDelete.appendChild(deleteButton);
   Settings.appendChild(divCartItemContentSettingsDelete);
+  deleteButton.addEventListener('click', function(){
+    
+    
+    // console.log(productChoosen)
+    // saveBasket(objJson);
+    
+    // article.remove();
+    // const el = document.getElementsByTagName('img')
+    // console.log(el)
+    let div = document.getElementsByTagName('article');
+// console.log(div)
+// console.log(div.closest('#data-id '+ article.dataset.id))
+    // for (let p of div){
+    //   console.log(p.closest('article'))
+    //   di.remove()
+    //   console.log(p)
+    // }
+    let basket = getBasket();
+    for (let i = 0; i < getBasket().length; i++){
+      if (objJson[i].id == article.dataset.id){
+        console.log(objJson[i].color)
+        article.remove();
+        
+        console.log(getBasket());
+        console.log(basket[i]);
+       
+        // delete basket[i].id;
+        // saveBasket(basket)/////////////////////////////////////
+      }
+      
+    }
+    console.log(article.dataset.id)
+    console.log(article.dataset.color)
+    // delete article.dataset.id
+
+  })
   return divCartItemContentSettingsDelete;
 
 }
-
-
-
-
 
 
 for (let productChoosen of objJson){
 
   let urlProducts = url(productChoosen);
   let colorChoose = getColorChoose(productChoosen, productChoosen.color);
-  let quantityChoose = getQuantityChoose(productChoosen, productChoosen.quantity);
+  let quantityChoose = getQuantityChoose(productChoosen.quantity);
   
-
-
 fetch(urlProducts)
   .then(function (res) {
     if (res.ok) {
@@ -189,10 +220,7 @@ fetch(urlProducts)
   })
   .then(function (productFromApi) {
 
-    
-
-
-    let createdArticle = addArticle();
+    let createdArticle = addArticle(productChoosen.id, productChoosen.color);
 
     let image = addImg(productFromApi.imageUrl ,createdArticle);
 
@@ -210,15 +238,8 @@ fetch(urlProducts)
     
     let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen);
     
-    let ButtonDelete = settingsButtonDelete(itemContentSettings);
+    let ButtonDelete = settingsButtonDelete(itemContentSettings, productChoosen, createdArticle);
     
-console.log(productChoosen.quantity)
-    if(productChoosen.quantity == '0'){
-      // objJson.splice(productChoosen)
-      console.log(productChoosen);
-      console.log(objJson)
-      console.log('La quantité est à 0' + productFromApi.name)
-    }
   })
 
   .catch(function (err) {
