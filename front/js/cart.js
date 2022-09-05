@@ -1,31 +1,31 @@
-// let objLinea = localStorage.getItem("basket");
+// let objLinea = localStorage.getItem("Cart");
 
 // let objJson = JSON.parse(objLinea);
 // console.log(objJson.length)
 
 let section = document.getElementById('cart__items');
 
-function saveBasket(basket){
-  localStorage.setItem("basket", JSON.stringify(basket));
+function saveCart(Cart){
+  localStorage.setItem("Cart", JSON.stringify(Cart));
 }
 
 
-function getBasket() {
-  let basket = localStorage.getItem("basket");
-  let objJson = JSON.parse(basket);
+function getCart() {
+  let Cart = localStorage.getItem("Cart");
+  let objJson = JSON.parse(Cart);
   return objJson;
 }
 
-let objJson = getBasket();
+let objJson = getCart();
 
 
-function addBasket(product) {
+function addCart(product) {
 
-  let basket = getBasket();
+  let Cart = getCart();
   
-  basket.push(product);
+  Cart.push(product);
 
-  saveBasket(basket);
+  saveCart(Cart);
 }
 
 
@@ -155,10 +155,8 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen, priceFrom
   
 
   printTotalOfArticles();
-  // lesDeux(priceFromApi)
-
-  calculPrix(priceFromApi, quantityChoose)
-  saveBasket(objJson);
+  printTotalPriceInCart(priceFromApi)
+  saveCart(objJson);
 
   })
 }
@@ -188,7 +186,7 @@ function settingsButtonDelete (Settings, article){
 
         printTotalOfArticles();
         
-        saveBasket(objJson)
+        saveCart(objJson)
       }
 
     }
@@ -333,39 +331,39 @@ function printTotalOfArticles(){
 
 
 
-function add(priceFromApi, quantity, arrayPrice){
-  let printPrice = document.getElementById('totalPrice')
+function addTotalPriceInArray(priceFromApi, quantity, arrayPrice){
+  
 
-  let prixTot = priceFromApi * quantity;
+  let totalPrice = priceFromApi * quantity;
 
-  console.log(prixTot)
+  console.log(totalPrice)
 
-  arrayPrice.push(prixTot)
+  arrayPrice.push(totalPrice)
 
   return arrayPrice
 }
 
-function calc (arrayPrice){
-
+function calcTotalPrice (arrayPrice){
+  let printPrice = document.getElementById('totalPrice')
   const reducer = (accumulator, currentValue) => accumulator + currentValue
 
-  const coutTotal = arrayPrice.reduce(reducer);
+  const calcPrice = arrayPrice.reduce(reducer);
 
-  console.log(coutTotal)
+  console.log(calcPrice);
 
-  printPrice.innerHTML = coutTotal
+  printPrice.innerHTML = calcPrice;
 
-  return printPrice
+  return printPrice;
   
 }
 
-function cumul(priceFromApi){
+function printTotalPriceInCart(priceFromApi){
   let arrayPrice = [];
 
   for (let p of objJson){
-    add(priceFromApi, p.quantity, arrayPrice)
+    addTotalPriceInArray(priceFromApi, p.quantity, arrayPrice)
   }
-  calc(arrayPrice)
+  calcTotalPrice(arrayPrice)
 }
 
 
@@ -407,36 +405,9 @@ fetch(urlProducts)
     
     let ButtonDelete = settingsButtonDelete(itemContentSettings, createdArticle);
     
-    
-    
-    
-    
-    
+   
+    printTotalPriceInCart(productFromApi.price)
 
-    // leprixtotal(productFromApi.price);
-
-
-    
-
-
-
-// calculPrix(productFromApi.price, productChoosen.quantity)
-
-
-
-
-
-cumul(productFromApi.price)
-
-
-
-
-
-    // let calcTotalPriceProducts = calcTotalPrice(productFromApi.price, quantityChoose);
-    // let printTotalPrice = addTotalPrice(calcTotalPriceProducts);
-    
-    // let leprix = leprixtotal(calcTotalPrice(productFromApi.price, quantityChoose))
-    // lesDeux(productFromApi.price)
     
   })
   
@@ -449,5 +420,88 @@ cumul(productFromApi.price)
   
   
 }
-// lesDeux("1000")
 let printQuantity = printTotalOfArticles();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function testRegex(){
+  let test = "premier test";
+  let reg= /t/;
+  console.log(reg.test(test))
+}
+
+testRegex();
+
+
+const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const email = document.getElementById('email');
+
+let valuefirstName;
+let valuelastName;
+let valueAddress;
+let valueCity;
+let valueEmail;
+
+
+
+
+console.log(firstName)
+console.log(firstName.value)
+
+firstName.addEventListener('input', function(){
+
+  let error = document.getElementById('firstNameErrorMsg');
+  let reg = /^[a-z A-Z]{2,25}$/;
+  if(firstName.value == 0) {
+    valuefirstName = null;
+
+  }else if(firstName.value.length < 2 || firstName.value.length > 25){
+    error.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+    valuefirstName = null
+
+  }else if(!firstName.value.match(reg) && firstName.value.length > 2 && firstName.value.length < 25){
+    error.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux'
+    valuefirstName = firstName.value;
+    console.log(valuefirstName)
+    console.log(reg.test(firstName.value))
+    console.log(valuefirstName)
+
+  }else if(firstName.value.match(reg)){
+    error.innerHTML = 'youpi'
+    valuefirstName = firstName.value;
+    console.log(valuefirstName)
+    console.log(reg.test(firstName.value))
+    console.log(valuefirstName)
+
+  }
+})
+
+

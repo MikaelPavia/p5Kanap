@@ -27,32 +27,32 @@ function addMsgBox() {
 }
 
 
-function saveBasket(basket){
-  localStorage.setItem("basket", JSON.stringify(basket));
+function saveCart(Cart){
+  localStorage.setItem("Cart", JSON.stringify(Cart));
 }
 
 
-function getBasket() {
-  let basket = localStorage.getItem("basket");
+function getCart() {
+  let Cart = localStorage.getItem("Cart");
 
-  if (basket == null) {
+  if (Cart == null) {
     return [];
   }else {
-    return JSON.parse(basket);
+    return JSON.parse(Cart);
   }
 }
 
 
-function addBasket(product) {
+function addCart(product) {
 
-  let basket = getBasket();
-
-
-  // let foundProduct = basket.find(p => p.id == product.id && p.color == product.color);
+  let Cart = getCart();
 
 
+  // let foundProduct = Cart.find(p => p.id == product.id && p.color == product.color);
 
-  // let foundProduct = basket.find(function(p){
+
+
+  // let foundProduct = Cart.find(function(p){
   //   return p.id == product.id && p.color == product.color
   // });
 
@@ -62,7 +62,7 @@ function addBasket(product) {
     return produit.id == product.id && produit.color == product.color
   }
 
-  let foundProduct = basket.find(isCurrentProduct);
+  let foundProduct = Cart.find(isCurrentProduct);
 
   if (foundProduct != undefined) {
     // foundProduct = obj;
@@ -72,10 +72,10 @@ function addBasket(product) {
     
     foundProduct.quantity += parseInt(product.quantity);
   }else {
-    basket.push(product);
+    Cart.push(product);
   }
 
-  saveBasket(basket);
+  saveCart(Cart);
 }
 
 
@@ -171,29 +171,29 @@ let obj = {
   color: colorId.value,
   quantity: parseInt(quantity.value)
 }
-addBasket(obj);
+addCart(obj);
 
    }) 
 }
-// function saveBasket(array){
-//   // localStorage.setItem("basket", JSON.stringify(basket));
+// function saveCart(array){
+//   // localStorage.setItem("Cart", JSON.stringify(Cart));
 //     localStorage.setItem("obj", JSON.stringify(array));
 // }
 
-// function getBasket(){
-//   let basket = localStorage.getItem("obj");
-//   if(basket == null){
+// function getCart(){
+//   let Cart = localStorage.getItem("obj");
+//   if(Cart == null){
 //         return [];
         
 //       }else {
         
-//         return JSON.parse(basket);
+//         return JSON.parse(Cart);
         
 //       }
 // }
 
-// function addBasket(product){
-//   let basket = getBasket();
+// function addCart(product){
+//   let Cart = getCart();
 //   let obj = {
 //     id: id,
 //     color : colorId.value,
@@ -203,27 +203,27 @@ addBasket(obj);
 
   
 
-//   let productFound = basket.find(element => element.id == obj.id && element.color == obj.color)
+//   let productFound = Cart.find(element => element.id == obj.id && element.color == obj.color)
   
 //   console.log(productFound)
-//   // for (let i = 0; i < basket.length; i ++){
+//   // for (let i = 0; i < Cart.length; i ++){
 
 //   // }
-//   console.log(basket)
+//   console.log(Cart)
 //     if (productFound != undefined){
 //       obj.quantity++;
 //     }else{
 //       obj.quantity = 1;
-//       basket.push(product);
+//       Cart.push(product);
 //     }
 //   array.push(obj);
 //   console.log(array)
   
 
-//   saveBasket(array)
+//   saveCart(array)
 // }
     
-//       addBasket();
+//       addCart();
 
 
       
@@ -244,39 +244,39 @@ addBasket(obj);
 //   quantity: quantity.value
 // }
 
-// function saveBasket(basket){
-//   localStorage.setItem("obj", JSON.stringify(basket));
+// function saveCart(Cart){
+//   localStorage.setItem("obj", JSON.stringify(Cart));
 // }
 
-// function getBasket(){
-//   let basket = localStorage.getItem("obj");
-//   if(basket == null){
+// function getCart(){
+//   let Cart = localStorage.getItem("obj");
+//   if(Cart == null){
 //     return [];
     
 //   }else {
-//     return JSON.parse(basket);
+//     return JSON.parse(Cart);
 //   }
 // }
 
-// console.log(getBasket())
+// console.log(getCart())
 
-// function addBasket(product){
-//   let basket = getBasket();
+// function addCart(product){
+//   let Cart = getCart();
 // console.log(product)
-//   // let foundProduct = basket.find(Element => Element == product.id && Element.color == product.color)
+//   // let foundProduct = Cart.find(Element => Element == product.id && Element.color == product.color)
 //   // if (foundProduct != undefined){
 //   //   foundProduct.quantity++;
 //   // }else {
 //   //   product.quantity = 1
-//   //   basket.push(product);
+//   //   Cart.push(product);
 //   // }
   
-//   saveBasket(basket)
+//   saveCart(Cart)
 // }
 
-// addBasket(obj)
+// addCart(obj)
 
-// console.log(addBasket())
+// console.log(addCart())
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
