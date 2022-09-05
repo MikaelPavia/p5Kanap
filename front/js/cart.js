@@ -129,7 +129,7 @@ function addCartItemContentSettings(divCartItemContent){
 } 
 
 
-function addSettingsQuantity(Settings, quantityChoose, productChoosen){
+function addSettingsQuantity(Settings, quantityChoose, productChoosen, priceFromApi){
 
   let divCartItemContentSettingsQuantity = document.createElement('div');
   divCartItemContentSettingsQuantity.classList.add('cart__item__content__settings__quantity');
@@ -147,21 +147,24 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen){
   divCartItemContentSettingsQuantity.appendChild(qté);
   divCartItemContentSettingsQuantity.appendChild(inputQté);
   Settings.appendChild(divCartItemContentSettingsQuantity);
-
+  
   inputQté.addEventListener('change', function(){
 
   productChoosen.quantity = inputQté.value;
     
-  saveBasket(objJson);
-    
-  console.log(totalQuantity)
+  
 
-    // totalQuantity.innerHTML = inputQté.value;
+  printTotalOfArticles();
+  // lesDeux(priceFromApi)
+
+  calculPrix(priceFromApi, quantityChoose)
+  saveBasket(objJson);
+
   })
 }
 
 
-function settingsButtonDelete (Settings, productChoosen, article){
+function settingsButtonDelete (Settings, article){
 
   let divCartItemContentSettingsDelete = document.createElement('div');
 
@@ -181,28 +184,30 @@ function settingsButtonDelete (Settings, productChoosen, article){
         
         article.remove();
         
-       objJson.splice(i,1)
-       saveBasket(objJson)
-      }
-      // totalQuantity.innerHTML = objJson.length;
+        objJson.splice(i,1)
 
-      
-      // printTotalPrice.innerHTML = prixTotal;
+        printTotalOfArticles();
+        
+        saveBasket(objJson)
+      }
+
     }
-    
   })
+  
   return divCartItemContentSettingsDelete;
 
 }
 
-let arrayTotalQuantity = [];
 
-function addTotalQuantity(quantityChoose){
+function addTotalQuantityInArray(quantityChoose, arrayTotalQuantity){
+  
   let totalQuantity = document.getElementById('totalQuantity');
   let totalQuantityProduct = parseInt(quantityChoose)
-   
   arrayTotalQuantity.push(totalQuantityProduct)
-    
+  return arrayTotalQuantity;
+}
+
+function calcTotalNumberOfArticles(arrayTotalQuantity){
   const reducer = (accumulator, currentValue) => accumulator +currentValue
   const totalNumberOfArticles = arrayTotalQuantity.reduce(reducer);
    
@@ -211,31 +216,159 @@ function addTotalQuantity(quantityChoose){
   return totalQuantity;
 }
 
-function addTotalPrice(prixTotal){
-  let totalPrice = prixTotal;
-  let printTotalPrice = document.getElementById('totalPrice');
-  printTotalPrice.innerHTML = totalPrice;
-  return printTotalPrice;
+function printTotalOfArticles(){
+  
+  let arrayTotalQuantity = [];
+  
+  for (let p of objJson){
+    
+    addTotalQuantityInArray(p.quantity,arrayTotalQuantity)
+    
+  }
+  calcTotalNumberOfArticles(arrayTotalQuantity)
 }
 
 
+// let arrayCalcTotalPrice = [];
+// function addTotalPrice(prixTotal){
 
-
-let arrayCalcTotalPrice = [];
-
-function calcTotalPrice(prix, quantity){
+//     let printTotalPrice = document.getElementById('totalPrice');
   
-  let totalSameProduct = prix * quantity;
-  console.log(totalSameProduct)
+//     let totalPrice = prixTotal;
+    
+//     printTotalPrice.innerHTML = totalPrice;
+//     return printTotalPrice;
+//   }
   
-  arrayCalcTotalPrice.push(totalSameProduct)
-  console.log(arrayCalcTotalPrice)
 
-  const reducer = (accumulator, currentValue) => accumulator +currentValue
-  const prixTotal = arrayCalcTotalPrice.reduce(reducer);
-  console.log(prixTotal)
-  return prixTotal;
+// function calcTotalPrice(prix, quantity){
+  
+//   let totalSameProduct = prix * quantity;
+//   console.log(totalSameProduct)
+  
+//   arrayCalcTotalPrice.push(totalSameProduct)
+//   console.log(arrayCalcTotalPrice)
+
+//   const reducer = (accumulator, currentValue) => accumulator +currentValue
+//   const prixTotal = arrayCalcTotalPrice.reduce(reducer);
+//   console.log(prixTotal)
+//   return prixTotal;
+// }
+
+
+
+
+
+
+
+
+
+
+
+// function addTotalPriceInArray(prix, quantity, arrayCalcTotalPrice){
+
+//     let printTotalPrice = document.getElementById('totalPrice');
+  
+//     let totalPrice = prix * quantity;
+    
+//     arrayCalcTotalPrice.push(totalPrice)
+//     printTotalPrice.innerHTML = totalPrice;
+//     return arrayCalcTotalPrice;
+//   }
+  
+
+// function calcTotalPrice(arrayCalcTotalPrice){
+
+//   const reducer = (accumulator, currentValue) => accumulator +currentValue
+//   const prixTotal = arrayCalcTotalPrice.reduce(reducer);
+  
+//   return prixTotal;
+// }
+
+
+
+
+// function leprixtotal(prix){
+
+//   let arrayCalcTotalPrice = [];
+// for (let p of objJson){
+//   addTotalPriceInArray(prix, p.quantity, arrayCalcTotalPrice)
+// }
+//   calcTotalPrice(arrayCalcTotalPrice)
+  
+// }
+
+
+
+
+
+
+
+
+// function calculPrix (priceFromApi, quantity){
+
+//   let print = document.getElementById('totalPrice')
+
+//   let prixTot = priceFromApi * quantity;
+
+//   console.log(prixTot)
+
+//   arrayPrice.push(prixTot)
+
+
+
+//   console.log(arrayPrice)
+
+//   const reducer = (accumulator, currentValue) => accumulator + currentValue
+
+//   const coutTotal = arrayPrice.reduce(reducer);
+
+//   console.log(coutTotal)
+
+//   print.innerHTML = coutTotal
+
+
+// }
+
+
+
+
+function add(priceFromApi, quantity, arrayPrice){
+  let printPrice = document.getElementById('totalPrice')
+
+  let prixTot = priceFromApi * quantity;
+
+  console.log(prixTot)
+
+  arrayPrice.push(prixTot)
+
+  return arrayPrice
 }
+
+function calc (arrayPrice){
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+
+  const coutTotal = arrayPrice.reduce(reducer);
+
+  console.log(coutTotal)
+
+  printPrice.innerHTML = coutTotal
+
+  return printPrice
+  
+}
+
+function cumul(priceFromApi){
+  let arrayPrice = [];
+
+  for (let p of objJson){
+    add(priceFromApi, p.quantity, arrayPrice)
+  }
+  calc(arrayPrice)
+}
+
+
 
 
 for (let productChoosen of objJson){
@@ -268,24 +401,53 @@ fetch(urlProducts)
 
     let itemContentSettings = addCartItemContentSettings(itemContent);
 
-    let calcTotalPriceProducts = calcTotalPrice(productFromApi.price, quantityChoose);
-
-    let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen, calcTotalPriceProducts);
-    
-    let ButtonDelete = settingsButtonDelete(itemContentSettings, productChoosen, createdArticle);
-    
-    let printQuantity = addTotalQuantity(quantityChoose);
-    
-    let printTotalPrice = addTotalPrice(calcTotalPriceProducts);
     
 
+    let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen, productFromApi.price);
+    
+    let ButtonDelete = settingsButtonDelete(itemContentSettings, createdArticle);
+    
+    
+    
+    
+    
+    
+
+    // leprixtotal(productFromApi.price);
+
+
+    
+
+
+
+// calculPrix(productFromApi.price, productChoosen.quantity)
+
+
+
+
+
+cumul(productFromApi.price)
+
+
+
+
+
+    // let calcTotalPriceProducts = calcTotalPrice(productFromApi.price, quantityChoose);
+    // let printTotalPrice = addTotalPrice(calcTotalPriceProducts);
+    
+    // let leprix = leprixtotal(calcTotalPrice(productFromApi.price, quantityChoose))
+    // lesDeux(productFromApi.price)
     
   })
-
+  
   
   .catch(function (err) {
     console.log(err)
     console.log("Une erreur est survenue")
   })
-
+  
+  
+  
 }
+// lesDeux("1000")
+let printQuantity = printTotalOfArticles();
