@@ -129,7 +129,7 @@ function addCartItemContentSettings(divCartItemContent){
 } 
 
 
-function addSettingsQuantity(Settings, quantityChoose, productChoosen, priceFromApi){
+function addSettingsQuantity(Settings, quantityChoose, productChoosen){
 
   let divCartItemContentSettingsQuantity = document.createElement('div');
   divCartItemContentSettingsQuantity.classList.add('cart__item__content__settings__quantity');
@@ -151,12 +151,13 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen, priceFrom
   inputQté.addEventListener('change', function(){
 
   productChoosen.quantity = inputQté.value;
-    
-  
+
+  saveCart(objJson);
 
   printTotalOfArticles();
-  printTotalPriceInCart(priceFromApi)
-  saveCart(objJson);
+
+  updatePrice();
+  
 
   })
 }
@@ -184,9 +185,12 @@ function settingsButtonDelete (Settings, article){
         
         objJson.splice(i,1)
 
+        saveCart(objJson)
+
         printTotalOfArticles();
         
-        saveCart(objJson)
+        updatePrice();
+        
       }
 
     }
@@ -215,7 +219,7 @@ function calcTotalNumberOfArticles(arrayTotalQuantity){
 }
 
 function printTotalOfArticles(){
-  
+  let objJson = getCart();
   let arrayTotalQuantity = [];
   
   for (let p of objJson){
@@ -344,27 +348,65 @@ function addTotalPriceInArray(priceFromApi, quantity, arrayPrice){
 }
 
 function calcTotalPrice (arrayPrice){
-  let printPrice = document.getElementById('totalPrice')
+
+  
+
   const reducer = (accumulator, currentValue) => accumulator + currentValue
 
   const calcPrice = arrayPrice.reduce(reducer);
 
   console.log(calcPrice);
 
-  printPrice.innerHTML = calcPrice;
-
-  return printPrice;
+  return calcPrice;
   
 }
 
-function printTotalPriceInCart(priceFromApi){
+function printTotalPriceInCart(products){
+  let printPrice = document.getElementById('totalPrice')
   let arrayPrice = [];
+  let cart = getCart();
+  for (let cartItem of cart){
+    let price;
+    for (let product of products){
+      if(cartItem.id == product._id){
+        price = product.price;
 
-  for (let p of objJson){
-    addTotalPriceInArray(priceFromApi, p.quantity, arrayPrice)
+        break;
+      }
+    };
+    addTotalPriceInArray(price, cartItem.quantity, arrayPrice)
   }
-  calcTotalPrice(arrayPrice)
+
+  printPrice.innerHTML = calcTotalPrice(arrayPrice);
 }
+
+
+
+
+function updatePrice(){
+
+  fetch("http://localhost:3000/api/products")
+  .then(function(res){
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  
+  .then(function(products){
+
+    printTotalPriceInCart(products)
+    
+  })
+  .catch(function(err){
+    console.log(err)
+    console.log("Une erreur est survenue")
+  })
+
+  
+}
+
+
+
 
 
 
@@ -385,28 +427,25 @@ fetch(urlProducts)
 
     let createdArticle = addArticle(productChoosen.id, productChoosen.color);
 
-    let image = addImg(productFromApi.imageUrl ,createdArticle);
+    addImg(productFromApi.imageUrl ,createdArticle);
 
     let itemContent = addDivCartItemContent(createdArticle);
     
     let itemContentDescription = addDivCartItemContentDescription(itemContent);
     
-    let name = addNameProduct(productFromApi.name, itemContentDescription);
+    addNameProduct(productFromApi.name, itemContentDescription);
     
-    let color = addColorProduct(itemContentDescription, colorChoose);
+    addColorProduct(itemContentDescription, colorChoose);
     
-    let price = addPriceProduct(productFromApi.price, itemContentDescription);
+    addPriceProduct(productFromApi.price, itemContentDescription);
 
     let itemContentSettings = addCartItemContentSettings(itemContent);
 
+    addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen, productFromApi.price);
     
-
-    let settingsQuantity = addSettingsQuantity(itemContentSettings, quantityChoose, productChoosen, productFromApi.price);
+    settingsButtonDelete(itemContentSettings, createdArticle);
+  
     
-    let ButtonDelete = settingsButtonDelete(itemContentSettings, createdArticle);
-    
-   
-    printTotalPriceInCart(productFromApi.price)
 
     
   })
@@ -416,12 +455,9 @@ fetch(urlProducts)
     console.log(err)
     console.log("Une erreur est survenue")
   })
-  
-  
-  
 }
 let printQuantity = printTotalOfArticles();
-
+updatePrice();
 
 
 
@@ -471,10 +507,11 @@ let valueCity;
 let valueEmail;
 
 
-
+objet values 
 
 console.log(firstName)
 console.log(firstName.value)
+
 
 firstName.addEventListener('input', function(){
 
@@ -501,7 +538,6 @@ firstName.addEventListener('input', function(){
     console.log(reg.test(firstName.value))
     console.log(valuefirstName)
 
+
   }
 })
-
-
