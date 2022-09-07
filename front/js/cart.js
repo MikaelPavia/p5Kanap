@@ -478,66 +478,222 @@ updatePrice();
 
 
 
-
-
-
-
-
-
-
-function testRegex(){
-  let test = "premier test";
-  let reg= /t/;
-  console.log(reg.test(test))
-}
-
-testRegex();
-
-
 const firstName = document.getElementById('firstName');
 const lastName = document.getElementById('lastName');
 const address = document.getElementById('address');
 const city = document.getElementById('city');
 const email = document.getElementById('email');
 
-let valuefirstName;
-let valuelastName;
-let valueAddress;
-let valueCity;
-let valueEmail;
+let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+let addressErrorMsg = document.getElementById('addressErrorMsg');
+let cityErrorMsg = document.getElementById('cityErrorMsg');
+let emailErrorMsg = document.getElementById('emailErrorMsg');
 
 
-objet values 
-
-console.log(firstName)
-console.log(firstName.value)
-
-
-firstName.addEventListener('input', function(){
-
-  let error = document.getElementById('firstNameErrorMsg');
-  let reg = /^[a-z A-Z]{2,25}$/;
-  if(firstName.value == 0) {
-    valuefirstName = null;
-
-  }else if(firstName.value.length < 2 || firstName.value.length > 25){
-    error.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
-    valuefirstName = null
-
-  }else if(!firstName.value.match(reg) && firstName.value.length > 2 && firstName.value.length < 25){
-    error.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux'
-    valuefirstName = firstName.value;
-    console.log(valuefirstName)
-    console.log(reg.test(firstName.value))
-    console.log(valuefirstName)
-
-  }else if(firstName.value.match(reg)){
-    error.innerHTML = 'youpi'
-    valuefirstName = firstName.value;
-    console.log(valuefirstName)
-    console.log(reg.test(firstName.value))
-    console.log(valuefirstName)
+let contact = {
+  firstName: '',
+  lastName: '',
+  address: '',
+  city: '',
+  email: ''
+}
 
 
-  }
+function checkFirstName(inputName,errorMsg){
+  
+  inputName.addEventListener('input', function(){
+
+  
+    let reg = /^[a-z A-Z é-]{2,25}$/;
+    if(inputName.value == 0) {
+      valeur = null;
+  
+    }else if(inputName.value.length < 2 || inputName.value.length > 25){
+      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+      valeur = null
+  
+    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+      
+  
+    }else if(inputName.value.match(reg)){
+      errorMsg.innerHTML = 'youpi'
+      contact.firstName = inputName.value;
+      console.log(reg.test(inputName.value))
+    }
+    
+  })
+}
+
+
+function checkLastName(inputName,errorMsg){
+  inputName.addEventListener('input', function(){
+
+  
+    let reg = /^[a-z A-Z é-]{2,25}$/;
+    if(inputName.value == 0) {
+      valeur = null;
+  
+    }else if(inputName.value.length < 2 || inputName.value.length > 25){
+      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+      valeur = null
+  
+    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+      
+  
+    }else if(inputName.value.match(reg)){
+      errorMsg.innerHTML = 'youpi'
+      contact.lastName = inputName.value;
+    }
+  })
+}
+
+function checkCityName(inputName,errorMsg){
+  inputName.addEventListener('input', function(){
+
+  
+    let reg = /^[a-z A-Z é-]{2,25}$/;
+    if(inputName.value == 0) {
+      valeur = null;
+  
+    }else if(inputName.value.length < 2 || inputName.value.length > 25){
+      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+      valeur = null
+  
+    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+     
+  
+    }else if(inputName.value.match(reg)){
+      errorMsg.innerHTML = 'youpi'
+      contact.city = inputName.value;
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function checkAddressInput(inputName,errorMsg){
+  inputName.addEventListener('input', function(){
+
+  
+    let reg = /^[a-z A-Z 0-9 é-]{2,35}$/;
+    if(inputName.value == 0) {
+      contact.inputName = null;
+  
+    }else if(inputName.value.length < 2 || inputName.value.length > 35){
+      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+      contact.inputName = null
+  
+    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 35){
+      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux'
+      contact.inputName = inputName.value;
+      
+  
+    }else if(inputName.value.match(reg)){
+      errorMsg.innerHTML = 'youpi'
+      contact.address = inputName.value;
+  
+    }
+  })
+}
+
+function checkEmailInput(inputName,errorMsg){
+  inputName.addEventListener('input', function(){
+
+  
+    let reg = /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/;
+    let tr;
+    if(inputName.value == 0) {
+      contact.inputName = null;
+  
+    }else if(!inputName.value.match(reg)){
+      errorMsg.innerHTML = 'Veuillez saisir une adresse mail valide'
+      contact.inputName = inputName.value;
+  
+    }else if(inputName.value.match(reg)){
+      errorMsg.innerHTML = 'youpi'
+      contact.email = inputName.value;
+      tr = true
+    }
+return  tr
+  })
+}
+
+
+
+
+
+
+checkFirstName(firstName, firstNameErrorMsg)
+checkLastName(lastName, lastNameErrorMsg)
+checkCityName(city, cityErrorMsg)
+
+checkAddressInput(address, addressErrorMsg)
+checkEmailInput(email,emailErrorMsg)
+
+
+
+
+setTimeout(()=>{
+  console.log(contact)
+  console.log(typeof(contact.address))
+  
+},"10000")
+
+
+
+
+
+// btn.addEventListener('click', function(){
+//   console.log(contact)
+// console.log('em')
+// if(checkEmailInput(email,emailErrorMsg)==true){
+//   console.log('true')
+// }else{
+//   console.log('false')
+// }
+
+  // document.location.href= "confirmation.html"
+  
+// })
+
+let createProductArray = getCart()
+
+let arrayProduct =[]
+for (let i of createProductArray){
+  let idProduct = i.id;
+  arrayProduct.push(idProduct)
+}
+
+console.log(arrayProduct)
+
+let btn = document.getElementById('order')
+
+btn.addEventListener('click', function(){
+  console.log(contact)
 })
+
+let contactStringify = JSON.stringify(contact);
+
+fetch("http://localhost:3000/api/order", {
+  method: "POST",
+  headers: { "Content-Type": "application/json"},
+  body: contactStringify
+});
