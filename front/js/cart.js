@@ -676,29 +676,36 @@ setTimeout(()=>{
 
 let createProductArray = getCart()
 
-let arrayProduct =[]
+let products =[]
 for (let i of createProductArray){
   let idProduct = i.id;
-  arrayProduct.push(idProduct)
+  products.push(idProduct)
 }
 
-console.log(arrayProduct)
+console.log(products)
 
 let btn = document.getElementById('order')
-
+const toSend = {
+  contact,
+  products
+}
 btn.addEventListener('click', function(){
   console.log(contact)
+
+  
 })
+
 
 // let contactStringify = JSON.stringify(contact);
 // let productsStringify = JSON.stringify(arrayProduct)
 
+let promise = fetch("http://localhost:3000/api/order", {
 
-fetch("http://localhost:3000/api/order", {
-
-  mode: 'no-cors',
   method: "POST",
-  headers: { "Content-Type": "application/json"},
-  body: contact, arrayProduct
-
+  headers:{
+    'Content-type': 'application/JSON'
+  },
+  body: JSON.stringify(contact, products),
+  
 });
+
