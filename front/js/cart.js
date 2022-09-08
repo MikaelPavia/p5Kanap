@@ -690,10 +690,15 @@ btn.addEventListener('click', function(){
   console.log(contact)
 })
 
-let contactStringify = JSON.stringify(contact);
+// let contactStringify = JSON.stringify(contact);
+// let productsStringify = JSON.stringify(arrayProduct)
+
 
 fetch("http://localhost:3000/api/order", {
+
+  mode: 'no-cors',
   method: "POST",
   headers: { "Content-Type": "application/json"},
-  body: contactStringify
+  body: contact, arrayProduct
+
 });
