@@ -231,110 +231,6 @@ function printTotalOfArticles(){
 }
 
 
-// let arrayCalcTotalPrice = [];
-// function addTotalPrice(prixTotal){
-
-//     let printTotalPrice = document.getElementById('totalPrice');
-  
-//     let totalPrice = prixTotal;
-    
-//     printTotalPrice.innerHTML = totalPrice;
-//     return printTotalPrice;
-//   }
-  
-
-// function calcTotalPrice(prix, quantity){
-  
-//   let totalSameProduct = prix * quantity;
-//   console.log(totalSameProduct)
-  
-//   arrayCalcTotalPrice.push(totalSameProduct)
-//   console.log(arrayCalcTotalPrice)
-
-//   const reducer = (accumulator, currentValue) => accumulator +currentValue
-//   const prixTotal = arrayCalcTotalPrice.reduce(reducer);
-//   console.log(prixTotal)
-//   return prixTotal;
-// }
-
-
-
-
-
-
-
-
-
-
-
-// function addTotalPriceInArray(prix, quantity, arrayCalcTotalPrice){
-
-//     let printTotalPrice = document.getElementById('totalPrice');
-  
-//     let totalPrice = prix * quantity;
-    
-//     arrayCalcTotalPrice.push(totalPrice)
-//     printTotalPrice.innerHTML = totalPrice;
-//     return arrayCalcTotalPrice;
-//   }
-  
-
-// function calcTotalPrice(arrayCalcTotalPrice){
-
-//   const reducer = (accumulator, currentValue) => accumulator +currentValue
-//   const prixTotal = arrayCalcTotalPrice.reduce(reducer);
-  
-//   return prixTotal;
-// }
-
-
-
-
-// function leprixtotal(prix){
-
-//   let arrayCalcTotalPrice = [];
-// for (let p of objJson){
-//   addTotalPriceInArray(prix, p.quantity, arrayCalcTotalPrice)
-// }
-//   calcTotalPrice(arrayCalcTotalPrice)
-  
-// }
-
-
-
-
-
-
-
-
-// function calculPrix (priceFromApi, quantity){
-
-//   let print = document.getElementById('totalPrice')
-
-//   let prixTot = priceFromApi * quantity;
-
-//   console.log(prixTot)
-
-//   arrayPrice.push(prixTot)
-
-
-
-//   console.log(arrayPrice)
-
-//   const reducer = (accumulator, currentValue) => accumulator + currentValue
-
-//   const coutTotal = arrayPrice.reduce(reducer);
-
-//   console.log(coutTotal)
-
-//   print.innerHTML = coutTotal
-
-
-// }
-
-
-
-
 function addTotalPriceInArray(priceFromApi, quantity, arrayPrice){
   
 
@@ -478,100 +374,90 @@ updatePrice();
 
 
 
-const firstName = document.getElementById('firstName');
-const lastName = document.getElementById('lastName');
-const address = document.getElementById('address');
-const city = document.getElementById('city');
-const email = document.getElementById('email');
-
-let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
-let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
-let addressErrorMsg = document.getElementById('addressErrorMsg');
-let cityErrorMsg = document.getElementById('cityErrorMsg');
-let emailErrorMsg = document.getElementById('emailErrorMsg');
 
 
-let contact = {
-  firstName: '',
-  lastName: '',
-  address: '',
-  city: '',
-  email: ''
-}
+
+// let contact = {
+//   firstName: '',
+//   lastName: '',
+//   address: '',
+//   city: '',
+//   email: ''
+// }
 
 
-function checkFirstName(inputName,errorMsg){
+// function checkFirstName(inputName,errorMsg){
   
-  inputName.addEventListener('input', function(){
+//   inputName.addEventListener('input', function(){
 
   
-    let reg = /^[a-z A-Z é-]{2,25}$/;
-    if(inputName.value == 0) {
-      valeur = null;
+//     let reg = /^[a-z A-Z é-]{2,25}$/;
+//     if(inputName.value == 0) {
+//       valeur = null;
   
-    }else if(inputName.value.length < 2 || inputName.value.length > 25){
-      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
-      valeur = null
+//     }else if(inputName.value.length < 2 || inputName.value.length > 25){
+//       errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+//       valeur = null
   
-    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
-      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+//     }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+//       errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
       
   
-    }else if(inputName.value.match(reg)){
-      errorMsg.innerHTML = 'youpi'
-      contact.firstName = inputName.value;
-      console.log(reg.test(inputName.value))
-    }
+//     }else if(inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'youpi'
+//       contact.firstName = inputName.value;
+//       console.log(reg.test(inputName.value))
+//     }
     
-  })
-}
+//   })
+// }
 
 
-function checkLastName(inputName,errorMsg){
-  inputName.addEventListener('input', function(){
+// function checkLastName(inputName,errorMsg){
+//   inputName.addEventListener('input', function(){
 
   
-    let reg = /^[a-z A-Z é-]{2,25}$/;
-    if(inputName.value == 0) {
-      valeur = null;
+//     let reg = /^[a-z A-Z é-]{2,25}$/;
+//     if(inputName.value == 0) {
+//       valeur = null;
   
-    }else if(inputName.value.length < 2 || inputName.value.length > 25){
-      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
-      valeur = null
+//     }else if(inputName.value.length < 2 || inputName.value.length > 25){
+//       errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+//       valeur = null
   
-    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
-      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+//     }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+//       errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
       
   
-    }else if(inputName.value.match(reg)){
-      errorMsg.innerHTML = 'youpi'
-      contact.lastName = inputName.value;
-    }
-  })
-}
+//     }else if(inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'youpi'
+//       contact.lastName = inputName.value;
+//     }
+//   })
+// }
 
-function checkCityName(inputName,errorMsg){
-  inputName.addEventListener('input', function(){
+// function checkCityName(inputName,errorMsg){
+//   inputName.addEventListener('input', function(){
 
   
-    let reg = /^[a-z A-Z é-]{2,25}$/;
-    if(inputName.value == 0) {
-      valeur = null;
+//     let reg = /^[a-z A-Z é-]{2,25}$/;
+//     if(inputName.value == 0) {
+//       valeur = null;
   
-    }else if(inputName.value.length < 2 || inputName.value.length > 25){
-      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
-      valeur = null
+//     }else if(inputName.value.length < 2 || inputName.value.length > 25){
+//       errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+//       valeur = null
   
-    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
-      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
+//     }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 25){
+//       errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux ni de chiffres'
      
   
-    }else if(inputName.value.match(reg)){
-      errorMsg.innerHTML = 'youpi'
-      contact.city = inputName.value;
-    }
-  })
-}
+//     }else if(inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'youpi'
+//       contact.city = inputName.value;
+//     }
+//   })
+// }
 
 
 
@@ -589,73 +475,73 @@ function checkCityName(inputName,errorMsg){
 
 
 
-function checkAddressInput(inputName,errorMsg){
-  inputName.addEventListener('input', function(){
+// function checkAddressInput(inputName,errorMsg){
+//   inputName.addEventListener('input', function(){
 
   
-    let reg = /^[a-z A-Z 0-9 é-]{2,35}$/;
-    if(inputName.value == 0) {
-      contact.inputName = null;
+//     let reg = /^[a-z A-Z 0-9 é-]{2,35}$/;
+//     if(inputName.value == 0) {
+//       contact.inputName = null;
   
-    }else if(inputName.value.length < 2 || inputName.value.length > 35){
-      errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
-      contact.inputName = null
+//     }else if(inputName.value.length < 2 || inputName.value.length > 35){
+//       errorMsg.innerHTML = 'Le champ doit contenir entre 2 et 25 caractères'
+//       contact.inputName = null
   
-    }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 35){
-      errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux'
-      contact.inputName = inputName.value;
+//     }else if(!inputName.value.match(reg) && inputName.value.length > 2 && inputName.value.length < 35){
+//       errorMsg.innerHTML = 'Le champ ne doit pas contenir de caractères spéciaux'
+//       contact.inputName = inputName.value;
       
   
-    }else if(inputName.value.match(reg)){
-      errorMsg.innerHTML = 'youpi'
-      contact.address = inputName.value;
+//     }else if(inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'youpi'
+//       contact.address = inputName.value;
   
-    }
-  })
-}
+//     }
+//   })
+// }
 
-function checkEmailInput(inputName,errorMsg){
-  inputName.addEventListener('input', function(){
+// function checkEmailInput(inputName,errorMsg){
+//   inputName.addEventListener('input', function(){
 
   
-    let reg = /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/;
-    let tr;
-    if(inputName.value == 0) {
-      contact.inputName = null;
+//     let reg = /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/;
+//     let tr;
+//     if(inputName.value == 0) {
+//       contact.inputName = null;
   
-    }else if(!inputName.value.match(reg)){
-      errorMsg.innerHTML = 'Veuillez saisir une adresse mail valide'
-      contact.inputName = inputName.value;
+//     }else if(!inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'Veuillez saisir une adresse mail valide'
+//       contact.inputName = inputName.value;
   
-    }else if(inputName.value.match(reg)){
-      errorMsg.innerHTML = 'youpi'
-      contact.email = inputName.value;
-      tr = true
-    }
-return  tr
-  })
-}
+//     }else if(inputName.value.match(reg)){
+//       errorMsg.innerHTML = 'youpi'
+//       contact.email = inputName.value;
+//       tr = true
+//     }
+// return  tr
+//   })
+// }
 
 
 
 
 
 
-checkFirstName(firstName, firstNameErrorMsg)
-checkLastName(lastName, lastNameErrorMsg)
-checkCityName(city, cityErrorMsg)
+// checkFirstName(firstName, firstNameErrorMsg)
+// checkLastName(lastName, lastNameErrorMsg)
+// checkCityName(city, cityErrorMsg)
 
-checkAddressInput(address, addressErrorMsg)
-checkEmailInput(email,emailErrorMsg)
-
-
+// checkAddressInput(address, addressErrorMsg)
+// checkEmailInput(email,emailErrorMsg)
 
 
-setTimeout(()=>{
-  console.log(contact)
-  console.log(typeof(contact.address))
+
+
+// setTimeout(()=>{
+//   console.log(contact)
+//   console.log(typeof(contact.address))
   
-},"10000")
+// },"10000")
 
 
 
@@ -674,38 +560,242 @@ setTimeout(()=>{
   
 // })
 
-let createProductArray = getCart()
+// let createProductArray = getCart()
 
-let products =[]
-for (let i of createProductArray){
-  let idProduct = i.id;
-  products.push(idProduct)
-}
+// let products =[]
+// for (let i of createProductArray){
+//   let idProduct = i.id;
+//   products.push(idProduct)
+// }
 
-console.log(products)
+// console.log(products)
 
-let btn = document.getElementById('order')
-const toSend = {
-  contact,
-  products
-}
-btn.addEventListener('click', function(){
-  console.log(contact)
+// let btn = document.getElementById('order')
+// const toSend = {
+//   contact,
+//   products
+// }
+// btn.addEventListener('click', function(){
+//   console.log(contact)
 
   
-})
+// })
 
 
 // let contactStringify = JSON.stringify(contact);
 // let productsStringify = JSON.stringify(arrayProduct)
 
-let promise = fetch("http://localhost:3000/api/order", {
+// let promise = fetch("http://localhost:3000/api/order", {
 
-  method: "POST",
-  headers:{
-    'Content-type': 'application/JSON'
-  },
-  body: JSON.stringify(contact, products),
+//   method: "POST",
+//   headers:{
+//     'Content-type': 'application/JSON'
+//   },
+//   body: JSON.stringify(contact, products),
   
-});
+// }).then(function(response){
+//   return response.JSON();
+// })
+// .then(function(response){
 
+// })
+// .catch(function(error){
+//   console.log(err)
+//     console.log("Une erreur est survenue")
+// });
+
+
+
+
+
+
+
+const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const email = document.getElementById('email');
+
+let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+let addressErrorMsg = document.getElementById('addressErrorMsg');
+let cityErrorMsg = document.getElementById('cityErrorMsg');
+let emailErrorMsg = document.getElementById('emailErrorMsg');
+
+
+
+let errorMsgNamesAndCity = 'Le champ doit contenir entre 2 et 25 caractères, sans chiffes ni caractères spéciaux'
+let errorMsgAddress = 'Le champ doit contenir entre 2 et 35 caractères, sans caractères spéciaux'
+let errorMsgEmail = 'Veuillez saisir une adresse mail valide'
+
+
+
+const namesAndCityRegex = (value) => {
+  return /^[a-z A-Z é-]{2,25}$/.test(value);
+}
+
+const addressRegex = (value) => {
+  return /^[a-z A-Z 0-9 é-]{2,35}$/.test(value);
+}
+
+const emailRegex = (value) => {
+  return /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/.test(value);
+}
+
+function checkForm (formField, regex, errorMsg, errorMessageContent){
+  formField.addEventListener("input", function(){
+
+    if(regex(formField.value)){
+      formField.classList.add('is-valid');
+      formField.classList.replace("is-invalid", "is-valid");
+      console.log("TRUE");
+      errorMsg.innerHTML = 'youpi'
+      return true;
+    }else if(!formField.value.match(regex)){
+      formField.classList.add("is-invalid");
+      formField.classList.replace("is-valid", "is-invalid");
+      console.log("FALSE");
+      errorMsg.innerHTML = errorMessageContent; 
+      return false
+    }
+  });
+  formField.addEventListener("focus", function(){
+    if (formField.value === ""){
+      formField.classList.remove("is-valid", "is-invalid");
+      console.log("EN COURS");
+    }
+  })
+}
+
+checkForm(firstName, namesAndCityRegex, firstNameErrorMsg, errorMsgNamesAndCity)
+
+checkForm(lastName, namesAndCityRegex, lastNameErrorMsg, errorMsgNamesAndCity)
+
+checkForm(city, namesAndCityRegex, cityErrorMsg, errorMsgNamesAndCity)
+
+checkForm(address, addressRegex, addressErrorMsg, errorMsgAddress)
+
+checkForm(email, emailRegex, emailErrorMsg, errorMsgEmail)
+
+setTimeout(()=>{
+  console.log(firstName.value)
+  // console.log(typeof(contact.address))
+  console.log(firstName)
+},"10000")
+
+let contacts = {
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    email: ''
+  }
+
+  function getOrder(){
+    let inputs = document.querySelectorAll('input');
+
+    console.log(typeof(inputs))
+    
+    for (let i=0; i < inputs.length; i++){
+       inputs[i].addEventListener('change', function(){
+        console.log('changement')
+    
+        if(inputs[i].className === "is-valid"){
+          console.log("champ "+inputs[i].id+" validé")
+    
+          contacts.firstName = firstName.value
+          contacts.lastName = lastName.value
+          contacts.address = address.value
+          contacts.city = city.value
+          contacts.email = email.value
+          console.log(contacts)
+          localStorage.setItem("contact", JSON.stringify(contacts))
+        }
+      })
+      
+    }
+    
+  }
+
+  function createProductArray(){
+    let createProductArray = getCart()
+  
+    let products =[]
+    for (let i of createProductArray){
+      let idProduct = i.id;
+      products.push(idProduct)
+    }
+    
+    console.log(products)
+
+    localStorage.setItem("arrayProductId", JSON.stringify(products))
+  }
+
+
+
+getOrder();
+
+createProductArray();
+
+function sendOrder(){
+  const contact = JSON.parse(localStorage.getItem("contact"))
+  console.log(contact)
+  
+  const products = JSON.parse(localStorage.getItem("arrayProductId"))
+  console.log(products)
+  
+  let orderObject = {contact, products}
+  customerOrder = JSON.stringify(orderObject)
+  console.log(orderObject)
+  
+  if (document.getElementsByClassName('is-valid').length == 5){
+    console.log('il y en a 5')
+
+    fetch('http://localhost:3000/api/products/order',{
+
+      method: "POST",
+      headers:{ 'content-type': 'application/json',
+                'accept': 'application/json'},
+  
+      body: customerOrder,
+  
+    })
+  
+    .then(function(response){
+      console.log(response)
+      localStorage.setItem("customerOrder", customerOrder);
+        localStorage.removeItem("Cart");
+        localStorage.removeItem("contact");
+        localStorage.removeItem("arrayProductId");
+        localStorage.setItem("orderId", response.orderId);
+        // window.location.href = "confirmation.html?orderId=" + response.orderId;
+        console.log(response.orderId)
+        console.log(response.products)
+        return response.JSON;
+      })
+      
+      .catch(function(error){
+        console.log(error)
+        // alert("Erreur lors de l'envoi de la commande")
+        
+      });
+  }else{
+    
+      alert("Veuillez correctement remplir le formulaire")
+    
+  }
+}
+
+
+
+// let btn = document.getElementById('order')
+// btn.addEventListener('click', function(){
+//   sendOrder()
+  
+  
+// })
+
+
+setTimeout(()=>{
+  sendOrder()
+},"10000")
