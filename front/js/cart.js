@@ -358,25 +358,6 @@ updatePrice();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // let contact = {
 //   firstName: '',
 //   lastName: '',
@@ -460,21 +441,6 @@ updatePrice();
 // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function checkAddressInput(inputName,errorMsg){
 //   inputName.addEventListener('input', function(){
 
@@ -505,7 +471,7 @@ updatePrice();
 
   
 //     let reg = /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/;
-//     let tr;
+
 //     if(inputName.value == 0) {
 //       contact.inputName = null;
   
@@ -516,16 +482,11 @@ updatePrice();
 //     }else if(inputName.value.match(reg)){
 //       errorMsg.innerHTML = 'youpi'
 //       contact.email = inputName.value;
-//       tr = true
+
 //     }
-// return  tr
+
 //   })
 // }
-
-
-
-
-
 
 // checkFirstName(firstName, firstNameErrorMsg)
 // checkLastName(lastName, lastNameErrorMsg)
@@ -533,9 +494,6 @@ updatePrice();
 
 // checkAddressInput(address, addressErrorMsg)
 // checkEmailInput(email,emailErrorMsg)
-
-
-
 
 // setTimeout(()=>{
 //   console.log(contact)
@@ -580,34 +538,6 @@ updatePrice();
 
   
 // })
-
-
-// let contactStringify = JSON.stringify(contact);
-// let productsStringify = JSON.stringify(arrayProduct)
-
-// let promise = fetch("http://localhost:3000/api/order", {
-
-//   method: "POST",
-//   headers:{
-//     'Content-type': 'application/JSON'
-//   },
-//   body: JSON.stringify(contact, products),
-  
-// }).then(function(response){
-//   return response.JSON();
-// })
-// .then(function(response){
-
-// })
-// .catch(function(error){
-//   console.log(err)
-//     console.log("Une erreur est survenue")
-// });
-
-
-
-
-
 
 
 const firstName = document.getElementById('firstName');
@@ -791,8 +721,6 @@ function sendOrder(){
 // let btn = document.getElementById('order')
 // btn.addEventListener('click', function(){
 //   sendOrder()
-  
-  
 // })
 
 
