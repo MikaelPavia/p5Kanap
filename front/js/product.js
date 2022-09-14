@@ -27,7 +27,7 @@ function addMsgBox() {
 }
 
 
-function saveCart(Cart){
+function saveCart(Cart) {
   localStorage.setItem("Cart", JSON.stringify(Cart));
 }
 
@@ -37,7 +37,7 @@ function getCart() {
 
   if (Cart == null) {
     return [];
-  }else {
+  } else {
     return JSON.parse(Cart);
   }
 }
@@ -47,31 +47,29 @@ function addCart(product) {
 
   let Cart = getCart();
 
-
-  // let foundProduct = Cart.find(p => p.id == product.id && p.color == product.color);
-
-
-
+  let foundProduct = Cart.find(p => p.id == product.id && p.color == product.color);
+console.log(Cart.find(p => p.id))
   // let foundProduct = Cart.find(function(p){
   //   return p.id == product.id && p.color == product.color
   // });
 
 
 
-  function isCurrentProduct(produit){
-    return produit.id == product.id && produit.color == product.color
-  }
+  // function isCurrentProduct(produit) {
+  //   return produit.id == product.id && produit.color == product.color
+  // }
 
-  let foundProduct = Cart.find(isCurrentProduct);
+  // let foundProduct = Cart.find(isCurrentProduct);
 
   if (foundProduct != undefined) {
     // foundProduct = obj;
     // foundProduct.quantity++ + product.quantity;
     // product.quantity;
     // parseInt(quantity.value);
-    
+
     foundProduct.quantity += parseInt(product.quantity);
-  }else {
+    console.log(foundProduct)
+  } else {
     Cart.push(product);
   }
 
@@ -159,19 +157,19 @@ fetch(urlProducts)
   })
 
 
-function addProductToCart(product) {
+function addProductToCart() {
   let addToCart = document.getElementById('addToCart');
 
   addToCart.addEventListener('click', function () {
- 
+
 
     addMsgBox();
-let obj = {
-  id: id,
-  color: colorId.value,
-  quantity: parseInt(quantity.value)
-}
-addCart(obj);
+    let obj = {
+      id: id,
+      color: colorId.value,
+      quantity: parseInt(quantity.value)
+    }
+    addCart(obj);
 
-   }) 
+  })
 }
