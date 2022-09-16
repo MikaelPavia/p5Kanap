@@ -1,5 +1,8 @@
+// Récupérer l'élément avec l'ID "items"
+
 let sectionItems = document.getElementById("items");
 
+// Ajouter un lien vers la page produit à sectionItems
 
 function addLink (productId){
   let a = document.createElement("a");
@@ -8,12 +11,15 @@ function addLink (productId){
   return a;
 }
 
+// Ajouter un élément article au lien créé précédemment 
+
 function addArticle (a){
   let article = document.createElement("article");
   a.appendChild(article);
   return article; 
 }
 
+// Ajouter une image récupérée via l'API à l'élément article
 
 function addImg (productImage, article){
   let img = document.createElement("img");
@@ -23,6 +29,9 @@ function addImg (productImage, article){
   return img;
 }
 
+
+// Ajouter le nom du produit récupéré via l' API à l'élément article
+
 function addName (productName, article){
       let title = document.createElement("h3");
       title.classList.add("productName");
@@ -31,12 +40,16 @@ function addName (productName, article){
       return title;
 }
 
+// Ajouter la description du produit récupéré via l'API à l'élément article
+
 function addDescription (productDescription, article) {
       let p = document.createElement("p");
       p.classList.add("productDescription");
       p.innerHTML = productDescription;
       article.appendChild(p);
 }
+
+// Appel de l'API et appel des fonctions créées quand l'appel API a fonctionné
 
 fetch("http://localhost:3000/api/products")
   .then(function(res){

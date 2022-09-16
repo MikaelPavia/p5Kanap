@@ -1,12 +1,18 @@
+// Récupération de l'ID compris dans l'URL de la page, ajouté via la page script, dans l'élément article
+
 let params = new URL(document.location).searchParams;
 let id = params.get('id');
 let urlProducts = 'http://localhost:3000/api/products/';
 urlProducts += id;
 
+
 let colorId = document.getElementById('colors');
 let quantity = document.getElementById('quantity');
 
-function addMsgBox() {
+
+// Création d'un message de confirmation d'ajout au panier d'un produit au moment du clic, affiché durant 1,5s
+
+function addMsgBox(boxMessageContent) {
   let msg = document.getElementsByTagName('article');
   for (let message of msg) {
     let box = document.createElement('div');
@@ -16,21 +22,25 @@ function addMsgBox() {
     box.style.marginTop = "50px";
     box.style.textAlign = 'center';
     box.style.backgroundColor = "green";
-    box.innerText = 'Votre produit a bien été ajouté au panier';
+    box.innerText = boxMessageContent;
     message.appendChild(box)
 
     setTimeout(() => {
       box.remove();
-    }, "1500")
+    }, "2000")
 
   }
 }
 
 
+// Sauvegarde du panier dans le localStorage
+
 function saveCart(Cart) {
   localStorage.setItem("Cart", JSON.stringify(Cart));
 }
 
+
+//Récupération du panier enregistré dans localStorage
 
 function getCart() {
   let Cart = localStorage.getItem("Cart");
@@ -42,6 +52,7 @@ function getCart() {
   }
 }
 
+// Ajout d'un produit au panier stocké dans le localStorage, avec incrémentation si le produit est déja présent
 
 function addCart(product) {
 
@@ -82,7 +93,7 @@ console.log(Cart.find(p => p.id))
 
 
 
-
+// Ajout de l'image du produit, récupérée via l'API
 
 function addImage(product) {
   let items__img = document.getElementsByClassName('item__img');
@@ -95,24 +106,28 @@ function addImage(product) {
   }
 }
 
+// Ajout du nom du produit, récupéré via l'API
 
 function addName(titleText) {
   let title = document.getElementById('title');
   title += title.innerText = titleText;
 }
 
+// Affichage du prix du produit, récupéré via l'API
 
 function addPrice(price) {
   let priceElement = document.getElementById('price');
   priceElement.innerHTML = price;
 }
 
+// Ajout de la description produit, récupérée via l'API
 
 function addDescription(description) {
   let descriptionElement = document.getElementById('description');
   descriptionElement.innerText = description;
 }
 
+// Ajout des possibilités de coloris, récupérés via l'API
 
 function addColorsOptions(colorslist) {
 
@@ -124,6 +139,8 @@ function addColorsOptions(colorslist) {
   }
 }
 
+
+// Récupération de l'API du produit ajouté, via son ID
 
 fetch(urlProducts)
   .then(function (res) {
@@ -157,19 +174,28 @@ fetch(urlProducts)
   })
 
 
+
+  //Appel de la fonction pour ajouter le produit séléctionné au panier via le clic sur le bouton 
+
+
 function addProductToCart() {
   let addToCart = document.getElementById('addToCart');
 
   addToCart.addEventListener('click', function () {
 
-
-    addMsgBox();
     let obj = {
       id: id,
       color: colorId.value,
       quantity: parseInt(quantity.value)
     }
-    addCart(obj);
+
+    if (obj.color != '' && obj.quantity > 0){
+      addCart(obj);
+      addMsgBox('Votre produit a bien été ajouté au panier');
+    }else{
+      addMsgBox('Veuillez choisir une quantité supérieure à 0, ainsi qu\'une couleur');
+    }
+    
 
   })
 }

@@ -1,9 +1,15 @@
+// Récupérer l'élément avec l'ID "items"
+
 let section = document.getElementById('cart__items');
+
+// Sauvegarder le panier dans le localStorage
 
 function saveCart(Cart) {
   localStorage.setItem("Cart", JSON.stringify(Cart));
 }
 
+
+//Récupérer le contenu du localStorage
 
 function getCart() {
   let Cart = localStorage.getItem("Cart");
@@ -13,6 +19,8 @@ function getCart() {
 
 let objJson = getCart();
 
+
+// Ajouter au panier le produit choisi, sa couleur et sa quantité
 
 function addCart(product) {
 
@@ -24,6 +32,8 @@ function addCart(product) {
 }
 
 
+// Définition de l'url de chaque produit
+
 function url(productChoosen) {
 
   let urlProducts = 'http://localhost:3000/api/products/';
@@ -31,6 +41,7 @@ function url(productChoosen) {
   return (urlProducts);
 }
 
+// Récupération de la couleur choisie par l'utilisateur
 
 function getColorChoose(productChoosen) {
 
@@ -38,6 +49,7 @@ function getColorChoose(productChoosen) {
   return (colorChoose);
 }
 
+// Récupération de la quantité siasie par l'utilisateur
 
 function getQuantityChoose(productChoosen) {
 
@@ -45,6 +57,7 @@ function getQuantityChoose(productChoosen) {
   return (quantityChoose);
 }
 
+// Création d'un élément article, ajouté à l'élément "section" défini plus haut
 
 function addArticle(idProductChoosen, colorProductChoosen) {
 
@@ -58,6 +71,7 @@ function addArticle(idProductChoosen, colorProductChoosen) {
   return article;
 }
 
+// Ajout de l'image du produit correspondant récupéré via l'API 
 
 function addImg(imageProduct, article) {
   let divImg = document.createElement('div');
@@ -69,6 +83,7 @@ function addImg(imageProduct, article) {
   return divImg;
 }
 
+// Création d'un élément DIV rattaché à l'élément article, pour afficher les informations produit
 
 function addDivCartItemContent(article) {
 
@@ -78,6 +93,7 @@ function addDivCartItemContent(article) {
   return divCartItemContent;
 }
 
+// Création d'un élément DIV rattaché à la DIV précedente, pour l'affichage de la description du produit
 
 function addDivCartItemContentDescription(divCartItemContent) {
 
@@ -88,6 +104,7 @@ function addDivCartItemContentDescription(divCartItemContent) {
 
 }
 
+// Affichage du nom du produit, rattaché à la DIV précédente
 
 function addNameProduct(nameChoose, contentDescription) {
 
@@ -96,6 +113,7 @@ function addNameProduct(nameChoose, contentDescription) {
   contentDescription.appendChild(nameProduct);
 }
 
+// Affichage de la couleur choisie par l'utilisateur
 
 function addColorProduct(contentDescription, colorChoose) {
 
@@ -105,14 +123,16 @@ function addColorProduct(contentDescription, colorChoose) {
 
 }
 
+// Affichage du prix du produit, récupéré via l'API
 
 function addPriceProduct(priceChoose, contentDescription) {
 
   let priceProduct = document.createElement('p');
-  priceProduct.innerHTML = priceChoose + " €";  // Appel API
+  priceProduct.innerHTML = priceChoose + " €";
   contentDescription.appendChild(priceProduct);
 }
 
+// Création d'une DIV pour contenir l'input quantité et le bouton supprimer
 
 function addCartItemContentSettings(divCartItemContent) {
 
@@ -123,6 +143,7 @@ function addCartItemContentSettings(divCartItemContent) {
 
 }
 
+// Création de l'input quantité, affichant la quantité choisie à létape précédente
 
 function addSettingsQuantity(Settings, quantityChoose, productChoosen) {
 
@@ -143,6 +164,7 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen) {
   divCartItemContentSettingsQuantity.appendChild(inputQté);
   Settings.appendChild(divCartItemContentSettingsQuantity);
 
+// Ecoute de l'évènement 'change' de l'input quantité pour mettre à jour localStorage, la quantité et le prix total affichés
   inputQté.addEventListener('change', function () {
 
     productChoosen.quantity = inputQté.value;
@@ -157,6 +179,7 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen) {
   })
 }
 
+// Création du bouton supprimer pour retirer un article du panier
 
 function settingsButtonDelete(Settings, article) {
 
@@ -172,6 +195,10 @@ function settingsButtonDelete(Settings, article) {
   deleteButton.addEventListener('click', function () {
 
     let div = document.getElementsByTagName('article');
+
+  // Pour chaque élément du localStorage, au clic du bouton "supprimer", 
+  // le produit correspondant est supprimé du panier, du localStorage,
+  // la quantité et le prix total sont mis à jour
 
     for (let i = 0; i < objJson.length; i++) {
       if (objJson[i].id == article.dataset.id && objJson[i].color == article.dataset.color) {
@@ -196,6 +223,7 @@ function settingsButtonDelete(Settings, article) {
 
 }
 
+//Ajouter la quantité totale choisie pour chaque élément du panier dans un tableau
 
 function addTotalQuantityInArray(quantityChoose, arrayTotalQuantity) {
 
@@ -205,14 +233,30 @@ function addTotalQuantityInArray(quantityChoose, arrayTotalQuantity) {
   return arrayTotalQuantity;
 }
 
+
+// Calculer la quantité totale d'articles dans le panier uniquement s'il y en plus de 0
+
 function calcTotalNumberOfArticles(arrayTotalQuantity) {
-  const reducer = (accumulator, currentValue) => accumulator + currentValue
-  const totalNumberOfArticles = arrayTotalQuantity.reduce(reducer);
 
-  totalQuantity.innerHTML = totalNumberOfArticles;
+  
+  totalNumberOfArticles = 0
 
+  if (arrayTotalQuantity.length > 0){
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
+    const totalNumberOfArticles = arrayTotalQuantity.reduce(reducer);
+    totalQuantity.innerHTML = totalNumberOfArticles;
+    
+  }else {
+    totalQuantity.innerHTML = totalNumberOfArticles;
+  }
+  
+
+  
+  
   return totalQuantity;
 }
+
+// Afficher la quantité totale d'articles sur la page
 
 function printTotalOfArticles() {
   let objJson = getCart();
@@ -224,8 +268,10 @@ function printTotalOfArticles() {
 
   }
   calcTotalNumberOfArticles(arrayTotalQuantity)
+  return arrayTotalQuantity;
 }
 
+// Ajouter le prix total de chaque produit dans un tableau
 
 function addTotalPriceInArray(priceFromApi, quantity, arrayPrice) {
 
@@ -239,19 +285,25 @@ function addTotalPriceInArray(priceFromApi, quantity, arrayPrice) {
   return arrayPrice
 }
 
+//Calculer le montant total du  panier
+
 function calcTotalPrice(arrayPrice) {
 
+let arrayTotalQuantity = printTotalOfArticles();
 
 
-  const reducer = (accumulator, currentValue) => accumulator + currentValue
+let calcPrice =0
+  if (arrayTotalQuantity.length > 0) {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
 
-  const calcPrice = arrayPrice.reduce(reducer);
-
-  console.log(calcPrice);
+    calcPrice = arrayPrice.reduce(reducer);
+  }
 
   return calcPrice;
-
 }
+
+
+// Afficher le montant total du panier sur la page
 
 function printTotalPriceInCart(products) {
   let printPrice = document.getElementById('totalPrice')
@@ -273,7 +325,7 @@ function printTotalPriceInCart(products) {
 }
 
 
-
+// Mettre à jour le prix des produits
 
 function updatePrice() {
 
@@ -295,6 +347,10 @@ function updatePrice() {
     })
 
 }
+
+
+
+// Pour chaque item du localStorage, appel API du produit et éxécution des différentes fonctions
 
 for (let productChoosen of objJson) {
 
@@ -381,6 +437,9 @@ const emailRegex = (value) => {
   return /^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,4})$/.test(value);
 }
 
+
+
+// Vérification des informations saisies dans les formulaires via des REGEX et attribution d'une classe 
 function checkForm(formField, regex, errorMsg, errorMessageContent) {
   formField.addEventListener("input", function () {
 
@@ -416,11 +475,11 @@ checkForm(address, addressRegex, addressErrorMsg, errorMsgAddress)
 
 checkForm(email, emailRegex, emailErrorMsg, errorMsgEmail)
 
-setTimeout(() => {
-  console.log(firstName.value)
-  // console.log(typeof(contact.address))
-  console.log(firstName)
-}, "10000")
+// setTimeout(() => {
+//   console.log(firstName.value)
+//   // console.log(typeof(contact.address))
+//   console.log(firstName)
+// }, "10000")
 
 let contacts = {
   firstName: '',
@@ -429,6 +488,9 @@ let contacts = {
   city: '',
   email: ''
 }
+
+
+// Remplissage de l'objet si les données saisies sont valides
 
 function getOrder() {
   let inputs = document.querySelectorAll('input');
@@ -448,13 +510,15 @@ function getOrder() {
         contacts.city = city.value
         contacts.email = email.value
         console.log(contacts)
-        localStorage.setItem("contact", JSON.stringify(contacts))
+        
       }
     })
 
   }
 
 }
+
+// Création d'un tableau comprenant l'ID de chaque porduit du panier
 
 function createProductArray() {
   let createProductArray = getCart()
@@ -467,21 +531,22 @@ function createProductArray() {
 
   console.log(products)
 
-  localStorage.setItem("arrayProductId", JSON.stringify(products))
+  return products;
 }
 
 
 
 getOrder();
 
-createProductArray();
+
+// Envoi du panier et des informations de contact à l'API via une méthode POST
 
 function sendOrder() {
-  const contact = JSON.parse(localStorage.getItem("contact"))
-  console.log(contact)
+  const contact = contacts
 
-  const products = JSON.parse(localStorage.getItem("arrayProductId"))
-  console.log(products)
+  let products = createProductArray();
+
+
 
   let orderObject = { contact, products }
   customerOrder = JSON.stringify(orderObject)
@@ -507,14 +572,8 @@ function sendOrder() {
 
       .then(function (response) {
         console.log(response)
-        localStorage.setItem("customerOrder", customerOrder);
         localStorage.removeItem("Cart");
-        localStorage.removeItem("contact");
-        localStorage.removeItem("arrayProductId");
-        // localStorage.setItem("orderId", response.orderId);
         window.location.href = "confirmation.html?orderId=" + response.orderId;
-        console.log(response.orderId)
-        return response.JSON;
       })
 
       .catch(function (error) {
@@ -531,15 +590,17 @@ function sendOrder() {
 
 
 
-// let btn = document.getElementById('order')
-// btn.addEventListener('click', function(){
+let btn = document.getElementById('order')
+btn.addEventListener('click', function(event){
+  event.preventDefault();
+
+  sendOrder();
+})
+
+
+// setTimeout(() => {
 //   sendOrder()
-// })
-
-
-setTimeout(() => {
-  sendOrder()
-}, "10000")
+// }, "10000")
 
 
 
