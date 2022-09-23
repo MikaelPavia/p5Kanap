@@ -212,10 +212,10 @@ function settingsButtonDelete(Settings, article) {
         printTotalOfArticles();
 
         updatePrice();
-// console.log(article)
-// console.log(document.getElementsByTagName('article').length)
-      }
 
+
+      }
+      
     }
   })
 
@@ -447,7 +447,7 @@ function checkForm(formField, regex, errorMsg, errorMessageContent) {
       formField.classList.add('is-valid');
       formField.classList.replace("is-invalid", "is-valid");
       console.log("TRUE");
-      
+      errorMsg.innerHTML = '';
       return true;
     } else if (!formField.value.match(regex)) {
       formField.classList.add("is-invalid");
@@ -592,9 +592,16 @@ function sendOrder() {
 
 let btn = document.getElementById('order')
 btn.addEventListener('click', function(event){
+
+  
   event.preventDefault();
 
-  sendOrder();
+  if (document.getElementsByTagName('article').length > 0) {
+    sendOrder();
+  }else {
+    alert('Veuillez ajouter un produit au panier avant de continuer')
+  }
+  
 })
 
 
