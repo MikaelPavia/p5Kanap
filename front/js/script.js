@@ -11,7 +11,7 @@ function addLink(productId) {
   return a;
 }
 
-// Ajouter un élément article au lien créé précédemment 
+// Ajouter un élément 'article' au lien créé précédemment 
 
 function addArticle(a) {
   let article = document.createElement("article");
@@ -21,10 +21,10 @@ function addArticle(a) {
 
 // Ajouter une image récupérée via l'API à l'élément article
 
-function addImg(productImage, article) {
+function addImg(productImageUrl, productImageAlt, article) {
   let img = document.createElement("img");
-  img.src = productImage;
-  img.alt = productImage;
+  img.src = productImageUrl;
+  img.alt = productImageAlt;
   article.appendChild(img);
   return img;
 }
@@ -66,11 +66,11 @@ fetch("http://localhost:3000/api/products")
 
       let createdArticle = addArticle(createdLink);
 
-      let img = addImg(product.imageUrl, createdArticle)
+      addImg(product.imageUrl, product.altTxt, createdArticle)
 
-      let name = addName(product.name, createdArticle)
+      addName(product.name, createdArticle)
 
-      let description = addDescription(product.description, createdArticle)
+      addDescription(product.description, createdArticle)
 
     };
 

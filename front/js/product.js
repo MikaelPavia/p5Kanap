@@ -1,4 +1,4 @@
-// Récupération de l'ID compris dans l'URL de la page, ajouté via la page script, dans l'élément article
+// Récupération de l'ID compris dans l'URL de la page, ajouté via la page script avec la fonction addLink
 
 let params = new URL(document.location).searchParams;
 let id = params.get('id');
@@ -6,7 +6,7 @@ let urlProducts = 'http://localhost:3000/api/products/';
 urlProducts += id;
 
 
-let colorId = document.getElementById('colors');
+
 let quantity = document.getElementById('quantity');
 
 
@@ -125,6 +125,8 @@ function addDescription(description) {
 }
 
 // Ajout des possibilités de coloris, récupérés via l'API
+
+let colorId = document.getElementById('colors');
 
 function addColorsOptions(colorslist) {
 

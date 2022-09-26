@@ -1,4 +1,4 @@
-// Récupérer l'élément avec l'ID "items"
+// Récupérer l'élément avec l'ID "cart__items"
 
 let section = document.getElementById('cart__items');
 
@@ -73,12 +73,13 @@ function addArticle(idProductChoosen, colorProductChoosen) {
 
 // Ajout de l'image du produit correspondant récupéré via l'API 
 
-function addImg(imageProduct, article) {
+function addImg(imageProductUrl,imageProductAlt, article) {
   let divImg = document.createElement('div');
   divImg.classList.add('cart__item__img');
   article.appendChild(divImg);
   let img = document.createElement('img');
-  img.src = imageProduct;
+  img.src = imageProductUrl;
+  img.alt = imageProductAlt
   divImg.appendChild(img);
   return divImg;
 }
@@ -143,7 +144,7 @@ function addCartItemContentSettings(divCartItemContent) {
 
 }
 
-// Création de l'input quantité, affichant la quantité choisie à létape précédente
+// Création de l'input quantité, affichant la quantité choisie à l'étape précédente
 
 function addSettingsQuantity(Settings, quantityChoose, productChoosen) {
 
@@ -179,7 +180,7 @@ function addSettingsQuantity(Settings, quantityChoose, productChoosen) {
   })
 }
 
-// Création du bouton supprimer pour retirer un article du panier
+// Création du bouton 'supprimer' pour retirer un article du panier
 
 function settingsButtonDelete(Settings, article) {
 
@@ -250,9 +251,6 @@ function calcTotalNumberOfArticles(arrayTotalQuantity) {
     totalQuantity.innerHTML = totalNumberOfArticles;
   }
   
-
-  
-  
   return totalQuantity;
 }
 
@@ -292,7 +290,8 @@ function calcTotalPrice(arrayPrice) {
 let arrayTotalQuantity = printTotalOfArticles();
 
 
-let calcPrice =0
+let calcPrice = 0
+
   if (arrayTotalQuantity.length > 0) {
     const reducer = (accumulator, currentValue) => accumulator + currentValue
 
@@ -352,7 +351,11 @@ function updatePrice() {
 
 // Pour chaque item du localStorage, appel API du produit et éxécution des différentes fonctions
 
+  
+
 for (let productChoosen of objJson) {
+
+
 
   let urlProducts = url(productChoosen);
   let colorChoose = getColorChoose(productChoosen, productChoosen.color);
@@ -368,7 +371,7 @@ for (let productChoosen of objJson) {
 
       let createdArticle = addArticle(productChoosen.id, productChoosen.color);
 
-      addImg(productFromApi.imageUrl, createdArticle);
+      addImg(productFromApi.imageUrl, productFromApi.altTxt, createdArticle);
 
       let itemContent = addDivCartItemContent(createdArticle);
 
@@ -397,6 +400,7 @@ for (let productChoosen of objJson) {
       console.log("Une erreur est survenue")
     })
 }
+
 let printQuantity = printTotalOfArticles();
 updatePrice();
 
@@ -419,8 +423,8 @@ let emailErrorMsg = document.getElementById('emailErrorMsg');
 
 
 
-let errorMsgNamesAndCity = 'Le champ doit contenir entre 2 et 25 caractères, sans chiffes ni caractères spéciaux'
-let errorMsgAddress = 'Le champ doit contenir entre 2 et 35 caractères, sans caractères spéciaux'
+let errorMsgNamesAndCity = 'Le champ doit contenir au moins 1 caractère, sans chiffes ni caractères spéciaux'
+let errorMsgAddress = 'Le champ doit contenir au moins 1 caractère, sans caractères spéciaux'
 let errorMsgEmail = 'Veuillez saisir une adresse mail valide'
 
 
@@ -518,7 +522,7 @@ function getOrder() {
 
 }
 
-// Création d'un tableau comprenant l'ID de chaque porduit du panier
+// Création d'un tableau comprenant l'ID de chaque produit du panier
 
 function createProductArray() {
   let createProductArray = getCart()
