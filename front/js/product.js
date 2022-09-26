@@ -73,13 +73,10 @@ console.log(Cart.find(p => p.id))
   // let foundProduct = Cart.find(isCurrentProduct);
 
   if (foundProduct != undefined) {
-    // foundProduct = obj;
-    // foundProduct.quantity++ + product.quantity;
-    // product.quantity;
-    // parseInt(quantity.value);
 
     foundProduct.quantity += parseInt(product.quantity);
     console.log(foundProduct)
+    
   } else {
     Cart.push(product);
   }

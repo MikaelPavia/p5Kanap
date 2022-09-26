@@ -4,7 +4,7 @@ let sectionItems = document.getElementById("items");
 
 // Ajouter un lien vers la page produit à sectionItems
 
-function addLink (productId){
+function addLink(productId) {
   let a = document.createElement("a");
   a.href = "./product.html?id=" + productId;
   sectionItems.appendChild(a);
@@ -13,17 +13,17 @@ function addLink (productId){
 
 // Ajouter un élément article au lien créé précédemment 
 
-function addArticle (a){
+function addArticle(a) {
   let article = document.createElement("article");
   a.appendChild(article);
-  return article; 
+  return article;
 }
 
 // Ajouter une image récupérée via l'API à l'élément article
 
-function addImg (productImage, article){
+function addImg(productImage, article) {
   let img = document.createElement("img");
-  img.src  = productImage;
+  img.src = productImage;
   img.alt = productImage;
   article.appendChild(img);
   return img;
@@ -32,34 +32,34 @@ function addImg (productImage, article){
 
 // Ajouter le nom du produit récupéré via l' API à l'élément article
 
-function addName (productName, article){
-      let title = document.createElement("h3");
-      title.classList.add("productName");
-      title.innerText = productName;
-      article.appendChild(title);
-      return title;
+function addName(productName, article) {
+  let title = document.createElement("h3");
+  title.classList.add("productName");
+  title.innerText = productName;
+  article.appendChild(title);
+  return title;
 }
 
 // Ajouter la description du produit récupéré via l'API à l'élément article
 
-function addDescription (productDescription, article) {
-      let p = document.createElement("p");
-      p.classList.add("productDescription");
-      p.innerHTML = productDescription;
-      article.appendChild(p);
+function addDescription(productDescription, article) {
+  let p = document.createElement("p");
+  p.classList.add("productDescription");
+  p.innerHTML = productDescription;
+  article.appendChild(p);
 }
 
 // Appel de l'API et appel des fonctions créées quand l'appel API a fonctionné
 
 fetch("http://localhost:3000/api/products")
-  .then(function(res){
+  .then(function (res) {
     if (res.ok) {
       return res.json();
     }
   })
-  
-  .then(function(products){
-    for (let product of products){
+
+  .then(function (products) {
+    for (let product of products) {
       console.log(product)
 
       let createdLink = addLink(product._id);
@@ -69,13 +69,13 @@ fetch("http://localhost:3000/api/products")
       let img = addImg(product.imageUrl, createdArticle)
 
       let name = addName(product.name, createdArticle)
-      
+
       let description = addDescription(product.description, createdArticle)
-    
+
     };
-    
+
   })
-  .catch(function(err){
+  .catch(function (err) {
     console.log(err)
     console.log("Une erreur est survenue")
   })
